@@ -23,7 +23,7 @@
       if($count == 1) {
          //echo $myusername;
          $_SESSION['username'] = $myusername;
-         header("location:http://localhost/csp203_project/welcome.php");
+         header("location:http://localhost/csp203_project/Login/welcome.php");
 
       }else {
          $error = "Your Login Name or Password is invalid";

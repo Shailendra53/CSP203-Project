@@ -5,5 +5,5 @@
 		session_start();
 		session_unset();
 		session_destroy();
-		header("Location: http://localhost/csp203_project/login.html");
+		header("Location: http://localhost/csp203_project/Login/login.html");
 ?>
