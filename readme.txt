@@ -1,1 +1,1 @@
-This is out csp203 project repository
+This is our csp203 project repository
