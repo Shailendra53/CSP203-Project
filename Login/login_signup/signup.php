@@ -88,7 +88,7 @@ if($count==4){
 		    session_start();
 			$_SESSION['username']=$username;
 			echo " Username : ".$row_data["username"]."<br>";
-		    header('location:http://localhost/csp203_project/Login/welcome.php');
+		    header('location:http://localhost/csp203_project/main/index.php');
 		    
 			
 		}
