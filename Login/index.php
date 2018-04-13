@@ -1,100 +1,65 @@
+<?php
+	session_start();
+	require('connect.php');
+	if (@$_SESSION["username"]) {
+?>	
 <!DOCTYPE html>
-<html lang="en" >
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Login Form</title>
-  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
-<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-
-      <link rel="stylesheet" href="css/style.css">
-
-  
+	<title>home page</title>
 </head>
-
 <body>
+<?php include("header.php"); ?>
+<a href="post.php">Post Topic</a>
+<?php echo '<table style="border: 1px;">' ?>
+	
+	<tr>
+		<td width="80px;" style="text-align: center;"><span>ID</span></td>
+		<td width="80px;" style="text-align: center;">Name</td>
+		
+		<td width="80px;" style="text-align: center;">Author</td>
+		<td width="80px;" style="text-align: center;">Date</td>
+	</tr>
+	
 
 
-
-<!-- Mixins-->
-<!-- Pen Title-->
-<div class="pen-title">
-	LOGIN FORM
-</div>
-<div class="container">
-  <div class="card"></div>
-  <div class="card">
-    <h1 class="title">Login</h1>
-    <form action="http://localhost/csp203_project/Login/login_signup/login_action.php" method="post">
-      <div class="input-container">
-        <input type="text" name="username" required="required"/>
-        <label for="#{label}">Username</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="password" name="password" required="required"/>
-        <label for="#{label}">Password</label>
-        <div class="bar"></div>
-      </div>
-      <div class="button-container">
-        <button id="sub"><span>Go</span></button>
-      </div>
-      
-    </form>
-  </div>
-  <div class="card alt">
-  	
-    <div class="toggle"></div>
-    <h1 class="title">Register
-      <div class="close"></div>
-    </h1>
-    <form action="http://localhost/csp203_project/Login/login_signup/signup.php" method="post">
-      <div class="input-container">
-        <input type="text" name="username" required="*">
-        <label for="#{label}">Username</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="name" required="*">
-        <label for="#{label}">Name</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="password" name="password" required="*">
-        <label for="#{label}">Password</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="email" required="*">
-        <label for="#{label}">Email</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="mobile" required="*">
-        <label for="#{label}">Mobile</label>
-        <div class="bar"></div>
-      </div>
-      <div class="button-container">
-        <button name="signup"><span>Next</span></button>
-      </div>
-    </form>
-  </div>
-</div>
- 
-
-<div>
-    <h2><?php session_start(); echo $_SESSION['error']; session_destroy(); ?></h2>
-</div> 
-   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-  
-
-    <script  src="js/index.js"></script>
-
-
+<?php	
+	$check = mysql_query("SELECT * FROM topics");
+	if (mysql_num_rows($check)!= 0) {
+		while ($row = mysql_fetch_assoc($check)) {
+			$id = $row['topic_id'];
+			echo "<tr>";
+			echo '<td width="80px;" style="text-align: center;">'.$row["topic_id"].'</td>';
+			echo '<td width="80px;" style="text-align: center;"><a href="topic.php?id='.$id.'">'.$row["topic_name"].'</a></td>';
+			$check_user = mysql_query("SELECT * FROM users WHERE username='".$row['author']."'");
+			while ($row_user = mysql_fetch_assoc($check_user)) {
+				$userid = $row_user['id'];
+			}
+			echo '<td width="80px;" style="text-align: center;"> <a href="profile.php?id=$userid">'.$row["author"].'</a></td>';
+			$get_date = $row['date'];
+			echo '<td width="80px;" style="text-align: center;"><a href="index.php?id=$get_date">'.$row["date"].'</td>';
+		}
+	}
+	else{
+		echo "No topics found.";
+	}
+	echo "</table>";
+	if (@$_GET['date']) {
+		$check_date = mysql_query("SELECT * FROM topics WHERE date ='".$_GET['date']."'");
+	while ($row_date = mysql_fetch_assoc($check_date)) {
+						echo $row_date['topic_name'];
+					}
+	}
+?>
 </body>
-
 </html>
+<?php	
+	if (@$_GET['action'] == 'logout') {
+		session_destroy();
+		header("Location: login.php");
+	}
+	}
+	else {
+		header("Location: login.php");
+	}
+?>
