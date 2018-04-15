@@ -7,13 +7,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
+<!--php include-->
+<?php include 'php/connect.php';?>
 <title>EzDoc</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:title" content="Vide" />
-<meta name="keywords" content="Big store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!--<meta name="keywords" content="Big store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />-->
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -66,7 +68,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 </head>
 <body>
-<a href="offer.html"><img src="images/download.png" class="img-head" alt=""></a>
 <div class="header">
 
 		<div class="container">
@@ -256,6 +257,17 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>			
 </div>
   <!---->
+  <!--search form-->
+  <br/>
+  <div class="search-form">
+		<form style="background-color:black" action="#" method="post">
+			<input type="text" placeholder="Search..." name="Search...">
+			<input type="submit" value=" " >
+		</form>
+</div>	
+
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+    <script src="js/jquery.vide.min.js"></script>
 
     <!-- Carousel
     ================================================== -->
@@ -283,8 +295,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
     
     </div><!-- /.carousel -->
 
+
+
 <!--content-->
-<div class="kic-top ">
+<!--<div class="kic-top ">
 	<div class="container ">
 	<div class="kic ">
 			<h3>Popular Categories</h3>
@@ -312,10 +326,93 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<p>Nam libero tempore</p>
 		</div>
 	</div>
-</div>
+</div>-->
+
+
+<!-- products-->
+<?php
+if(isset($_GET['categoryID'])){
+	$categoryID=(int)$_GET['categoryID'];
+}
+$result=mysqli_query($conn,"SELECT * FROM medicine where category_id=$categoryID;");
+$n=mysqli_num_rows($result);
+		echo"<div class='product'>
+		<div class='container'>
+			<div class='spec '>
+				<h3>Products</h3>
+				<div class='ser-t'>
+					<b></b>
+					<span><i></i></span>
+					<b class='line'></b>
+				</div>
+			</div>
+				<div class=' con-w3l agileinf'>";
+				for($a=0;$a<$n;$a++){
+					$row = mysqli_fetch_assoc($result);
+					$medicineName=$row["medicine_name"];
+					$price=$row["price"];
+					$actualprice=1.1*$price;
+						echo"<div class='col-md-3 pro-1'>
+								<div class='col-m'>
+								<a href='#' data-toggle='modal' data-target='#myModal1' class='offer-img'>
+										<img src='images/tablets.jpg' class='img-responsive' alt=''>
+									</a>
+									<div class='mid-1'>
+										<div class='women'>
+											<h6><a href='single.html'>$medicineName</a></h6>							
+										</div>
+										<div class='mid-2'>
+											<p ><label>$actualprice</label><em class='item_price'>$price</em></p>
+											  <div class='block'>
+												<div class='starbox small ghosting'> </div>
+											</div>
+											<div class='clearfix'></div>
+										</div>
+											<div class='add'>
+										   <button class='btn btn-danger my-cart-btn my-cart-b' data-id='24' data-name='Wheat' data-summary='summary 24' data-price='6.00' data-quantity='1' data-image='images/of24.png'>Add to Cart</button>
+										</div>
+									</div>
+								</div>
+							</div>";
+							}
+							
+					echo"<div class='clearfix'></div>
+						 </div>
+		</div>
+	</div>";
+
+
+
+?>
+
+<!-- category names-->
+<?php
+$result=mysqli_query($conn,'SELECT * FROM category;');
+echo "<div class='kic-top '>
+			<div class='container '>
+				<div class='kic '>
+					<h3>All Categories</h3>
+				</div>";
+$n=mysqli_num_rows($result);
+for($a=0;$a<$n;$a=$a+1){ 
+	$row = mysqli_fetch_assoc($result);
+	$category=$row["category_name"];
+	$categoryID=$row["category_id"];
+	echo"<div class='col-md-4 kic-top1'>
+			<a href='kitchen.php?categoryID=$categoryID'>
+				<!--img src='images/spray.jpg' class='img-responsive' alt=''-->
+				<h6>$category</h6>
+			</a>
+		</div>";
+		}
+			echo"</div>
+	</div>";
+?>
+
+<br/><br/><br/>
 
 <!--content-->
-		<div class="product">
+<!--		<div class="product">
 		<div class="container">
 			<div class="spec ">
 				<h3>Products</h3>
@@ -594,9 +691,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<div class="clearfix"></div>
 						 </div>
 		</div>
-	</div>
+	</div>-->
 <!--footer-->
-<div class="footer">
+<!--<div class="footer">
 	<div class="container">
 		<div class="col-md-3 footer-grid">
 			<h3>About Us</h3>
@@ -663,7 +760,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 			<p> &copy; 2016 Big store. All Rights Reserved | Design by  <a href="http://w3layouts.com/"> W3layouts</a></p>
 		</div>
 	</div>
-</div>
+</div>-->
 <!-- //footer-->
 
 <!-- smooth scrolling -->

@@ -7,13 +7,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
+<!--php include-->
+<?php include 'php/connect.php';?>
 <title>EzDoc</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:title" content="Vide" />
-<meta name="keywords" content="Big store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!--<meta name="keywords" content="Big store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />-->
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -38,6 +40,14 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+<!-- Shibendar k template stylesheets 
+<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+<link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="../main/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="../main/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="../main/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="../main/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="../main/styles/responsive.css"> -->
 <!--- start-rate---->
 <script src="js/jstarbox.js"></script>
 	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
@@ -66,7 +76,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 </head>
 <body>
-<a href="offer.html"><img src="images/download.png" class="img-head" alt=""></a>
 <div class="header">
 
 		<div class="container">
@@ -106,7 +115,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 						</button>
 						
 
-					</div> 
+					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav ">
 							<li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>	
@@ -274,7 +283,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="js/jquery.vide.min.js"></script>
 
 <!--content-->
-<div class="content-top ">
+<!--<div class="content-top ">
 	<div class="container ">
 		<div class="spec ">
 			<h3>Special Offers</h3>
@@ -688,13 +697,67 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		
 	</div>
 	</div>
-	</div>
+	</div>-->
+<br/>
+<!--content-->
+  <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+         <a href="kitchen.html"> <img class="first-slide" src="images/ba.jpg" alt="First slide"></a>
+       
+        </div>
+        <div class="item">
+         <a href="care.html"> <img class="second-slide " src="images/ba1.jpg" alt="Second slide"></a>
+         
+        </div>
+        <div class="item">
+          <a href="hold.html"><img class="third-slide " src="images/ba2.jpg" alt="Third slide"></a>
+          
+        </div>
+      </div>
+    
+    </div><!-- /.carousel -->
+
 
 <!--content-->
-<div class="content-mid">
-	<div class="container">
-		
-		<div class="col-md-4 m-w3ls">
+<?php
+$result=mysqli_query($conn,'SELECT * FROM category;');
+$n=mysqli_num_rows($result);
+for($a=0;$a<$n;$a=$a+3){ 
+	echo "<div class='content-mid'>
+			<div class='container'>";
+			for($b=0;$b<3;$b++){
+				$row = mysqli_fetch_assoc($result);
+				$category=$row["category_name"];
+				$categoryID=$row["category_id"];	
+				echo "<div class='col-md-4 m-w3ls1'>
+					<div class='col-md '>
+						<a href='kitchen.php?categoryID=$categoryID'>
+							<img src='images/co.jpg' class='img-responsive img' alt=''>
+							<div class='big-sale'>
+								<div class='big-sale1'>
+									<h3><span>$category</span></h3>
+									<p>$category</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>";
+			}
+			echo"<div class='clearfix'></div>
+		</div>
+	</div>";
+}
+?>
+		<!--<div class="col-md-4 m-w3ls">
 			<div class="col-md1 ">
 				<a href="kitchen.html">
 					<img src="images/co1.jpg" class="img-responsive img" alt="">
@@ -741,36 +804,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</div>
 		<div class="clearfix"></div>
 	</div>
-</div>
-<!--content-->
-  <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-         <a href="kitchen.html"> <img class="first-slide" src="images/ba.jpg" alt="First slide"></a>
-       
-        </div>
-        <div class="item">
-         <a href="care.html"> <img class="second-slide " src="images/ba1.jpg" alt="Second slide"></a>
-         
-        </div>
-        <div class="item">
-          <a href="hold.html"><img class="third-slide " src="images/ba2.jpg" alt="Third slide"></a>
-          
-        </div>
-      </div>
-    
-    </div><!-- /.carousel -->
+</div>-->
 
 <!--content-->
-	<div class="product">
+	<!--<div class="product">
 		<div class="container">
 			<div class="spec ">
 				<h3>Special Offers</h3>
@@ -961,7 +998,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<div class="clearfix"></div>
 						 </div>
 		</div>
-	</div>
+	</div>-->
 <!--footer-->
 <!--<div class="footer">
 	<div class="container">
