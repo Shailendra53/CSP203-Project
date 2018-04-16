@@ -60,6 +60,12 @@ body
 	background: #FFFFFF;
 	color: #a5a5a5;
 }
+input{
+
+	border: none;
+	background: transparent;
+	cursor:pointer;
+}
 div
 {
 	display: block;

@@ -11,7 +11,7 @@
       $myusername = mysqli_real_escape_string($connection,$_POST['username']);
       $mypassword = mysqli_real_escape_string($connection,$_POST['password']); 
       //echo "here";
-      $sql = "SELECT * FROM users WHERE username = '$myusername' and pwd = '$mypassword'";
+      $sql = "SELECT * FROM users WHERE username = '$myusername'";
       $result = mysqli_query($connection,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $active = $row['active'];
@@ -20,7 +20,7 @@
       
       // If result matched $myusername and $mypassword, table row must be 1 row
 		
-      if($count == 1) {
+      if($count == 1 && $row['password'] == $mypassword) {
          //echo $myusername;
          $_SESSION['username'] = $myusername;
 
@@ -28,10 +28,21 @@
 
       }else {
          
-         $error = "Your Login Name or Password is invalid";
-         $_SESSION['error'] = $error;
-         echo $error;
-         header('location:http://localhost/csp203_project/Login/index.php');
+         if($count == 1){
+
+            $error = "Your Password is invalid";
+            $_SESSION['error'] = $error;
+            echo $error;
+            header('location:http://localhost/csp203_project/Login/index.php');
+         }
+         else{
+
+            $error = "Username doesn't exists";
+            $_SESSION['error'] = $error;
+            echo $error;
+            header('location:http://localhost/csp203_project/Login/index.php');
+         }
+         
       }
    }
 

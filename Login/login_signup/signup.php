@@ -80,15 +80,25 @@ if($count==4){
 		if ($answer->num_rows > 0) {
 
 			echo "Username : ".$username." is already taken<br>";
+			session_start();
+			$_SESSION['error']="Username : ".$username." is already taken<br>";
+		    header('location:http://localhost/csp203_project/Login/index.php');
 		} 
 		else {
-			$sqli = "insert into users values('$username','$name','$pass','$email',$mobile);";
-			$connection->query($sqli);
-		    echo "User $username inserted";
-		    session_start();
-			$_SESSION['username']=$username;
-			echo " Username : ".$row_data["username"]."<br>";
-		    header('location:http://localhost/csp203_project/main/index.php');
+			$sqli = "insert into users(username,name,password,email,mobile) values('$username','$name','$pass','$email',$mobile);";
+			if($connection->query($sqli)){
+				echo "User $username inserted";
+				session_start();
+				$_SESSION['username']=$username;
+				echo " Username : ".$row_data["username"]."<br>";
+			    header('location:http://localhost/csp203_project/main/index.php');
+			}
+		   	else{
+		   		session_start();
+				$_SESSION['error']="Signup Failed: Try Again";
+			    header('location:http://localhost/csp203_project/Login/index.php');
+		   	}
+		    
 		    
 			
 		}

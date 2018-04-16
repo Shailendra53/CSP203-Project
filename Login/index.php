@@ -43,6 +43,7 @@
         <button id="sub"><span>Go</span></button>
       </div>
       
+      
     </form>
   </div>
   <div class="card alt">
@@ -80,13 +81,16 @@
       <div class="button-container">
         <button name="signup"><span>Next</span></button>
       </div>
+
     </form>
   </div>
 </div>
+
  
 
+
 <div>
-    <h2><?php session_start(); echo $_SESSION['error']; session_destroy(); ?></h2>
+    <h2 style="text-align: center;font-weight: bolder;font-family: cursive;font-size: 200%"><?php session_start(); echo $_SESSION['error']; session_destroy(); ?></h2>
 </div> 
    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 

@@ -329,6 +329,7 @@ section
 	content: '';
 	box-shadow: 0px 20px 49px rgba(0,0,0,0.67);
 	z-index: -1;
+	background-color: #FD9F9F;
 }
 
 /*********************************
@@ -338,7 +339,7 @@ section
 .logo_container
 {
 	display: inline-block;
-	padding-left: 76px;
+	padding-left: 50px;
 }
 .logo span
 {
@@ -400,7 +401,7 @@ section
 {
 	width: 279px;
 	height: 100%;
-	background: #ffb606;
+	background: #C60F09;
 }
 .header_side img
 {
@@ -696,11 +697,14 @@ section
 {
 	font-size: 72px;
 	font-weight: 400;
-	color: #FFFFFF;
+	color: #061688;
+	font-family: sans-serif;
+	font-weight: bolder;
+	margin-top: 50%;
 }
 .hero_slide_content h1 span
 {
-	background: #ffb606;
+	margin-top: 50%;
 	padding-left: 13px;
 	padding-right: 13px;
 	margin-left: -12px;
@@ -748,11 +752,11 @@ section
 }
 .hero_slider_nav:hover
 {
-	background: #ffb606;
+	background: #A6C9EF;
 }
 .hero_slider_nav:hover span
 {
-	color: #FFFFFF;
+	color: black;
 }
 .hero_slider_nav span
 {
@@ -1014,7 +1018,8 @@ section
 .register_section
 {
 	width: 100%;
-	background: #ffb606;
+	height: 600px;
+	background: darkgrey;
 	padding-top: 156px;
 	padding-bottom: 161px;
 }
@@ -1222,11 +1227,11 @@ input:last-of-type
 .quote
 {
 	font-size: 36px;
-	color: #ffb606;
+	color: #2ef;
 }
 .testimonials_text
 {
-	color: #FFFFFF;
+	color: ;
 	margin-bottom: 0px;
 }
 .testimonial_user
@@ -1283,7 +1288,7 @@ input:last-of-type
 	width: 16px !important;
 	height: 16px !important;
 	border: none;
-	background: #ffb606 !important;
+	background: #4989B5 !important;
 }
 
 /*********************************
