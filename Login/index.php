@@ -41,11 +41,11 @@
         <div class="bar"></div>
       </div>
       <div class="button-container">
-        <button name="sub1"><span>Users Go</span></button>
+        <button name="sub1" value="user"><span>Users Go</span></button>
       </div>
       <br>
       <div class="button-container">
-        <button name="sub2"><span>Shopkeepers Go</span></button>
+        <button name="sub2" value="shopkeeper"><span>Shopkeepers Go</span></button>
       </div>
       
     </form>

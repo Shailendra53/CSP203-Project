@@ -39,21 +39,49 @@
 						<li class="main_nav_item"><a href="#">home</a></li>
 						<li class="main_nav_item"><a href="#aboutus">about us</a></li>
 						<li class="main_nav_item"><a href="#search">Hospitals</a></li>
-						<li class="main_nav_item"><a href="#">Register shop</a></li>
-						<li class="main_nav_item"><a href="#">QnA Portal</a></li>
+						<?php 
+							session_start();
+							
+							if($_SESSION['role'] == "shopkeeper"){
+
+								echo '<li class="main_nav_item"><a href="#">Register shop</a></li>';
+							}
+
+							if($_SESSION['username'] != null){
+
+								echo '<li class="main_nav_item"><a href="#">QnA Portal</a></li>';
+							}
+						?>
+						
 						<li class="main_nav_item"><a href="#footer">contact</a></li>
 					</ul>
 				</div>
 			</nav>
 		</div>
+
+		
 		<div class="header_side d-flex flex-row justify-content-center align-items-center">
 			
-			<span> <form method="post" action="logout.php">
-				
-      		<input type="submit" name="logout" value="<?php session_start(); echo $_SESSION['username']; if($_SESSION['username'] == null){
-      			echo "GET LOST";
-      		}?> (LOG OUT)">
-      	</form></span>
+			<span> 
+
+				<?php 
+					session_start();
+					
+					if($_SESSION['username'] != null){
+
+						echo '<form method="post" action="logout.php">			
+      							<input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)">
+      						</form>';
+					}
+					else{
+
+						echo '<img src="https://image.flaticon.com/icons/svg/51/51256.svg" alt="">
+								<a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a>';
+					}
+				?>
+
+
+			</span>
 
 		</div>
 
@@ -112,10 +140,11 @@
 				
 				<!-- Hero Slide -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/doctors.jpg);-webkit-filter: brightness(0.85);
-    filter: brightness(0.85);"></div>
+					<div class="hero_slide_background" style="background-image:url(images/background.jpg);"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-						
+						<div class="hero_slide_content text-center">
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"> We are here to HELP!</h1>
+						</div>
 					</div>
 				</div>
 				
@@ -123,10 +152,10 @@
 				
 				<!-- Hero Slide -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/sthethoscope.jpg)"></div>
+					<div class="hero_slide_background" style="background-image:url(images/background.jpg)"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
 						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Your <span>Health</span> First!</h1>
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Your Health First!</h1>
 						</div>
 					</div>
 				</div>
@@ -139,43 +168,52 @@
 
 	</div>
 
-	<div class="hero_boxes">
-		<div class="hero_boxes_inner">
-			<div class="container">
-				<div class="row">
 
-					<div class="col-lg-4 hero_box_col">
-						
-					</div>
 
-					<div class="col-lg-4 hero_box_col">
-						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-							
-							<div class="hero_box_content">
-								<h2 class="hero_box_title">Online medical store</h2>
+	<?php 
+		session_start();
+		if($_SESSION['username'] != null){
+
+			echo '<div class="hero_boxes">
+					<div class="hero_boxes_inner">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-lg-4 hero_box_col">
+									
+								</div>
+
+								<div class="col-lg-4 hero_box_col">
+									<div class="hero_box d-flex flex-row align-items-center justify-content-start">
+										
+										<div class="hero_box_content">
+											<h2 class="hero_box_title">Online medical store</h2>
+										</div>
+									</div>
+								</div>
+
+								
+
 							</div>
 						</div>
 					</div>
-
-					
-
-				</div>
-			</div>
-		</div>
-	</div>
+				</div>';
+		}
+	?>
+	
 
 	<!-- Popular -->
 
 	<div class="popular page_section" id="search">
 		<div class="testimonials_background_container prlx_parent">
-			<div class="prlx" style="background-image:url(images/background.jpg);-webkit-filter: brightness(0.45);
-    filter: brightness(0.45); background-repeat: no-repeat;background-size: cover;background-position: center; "></div>
+			<div class="prlx" style="background-image:url(images/back.jpg);-webkit-filter: brightness(0.87);
+    filter: brightness(0.87); background-repeat: no-repeat;background-size: cover;background-position: center; "></div>
 		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="section_title text-center">
-						<h1>Search Hospital Nearby</h1>
+						<h1 style="font-size: 450%; color: ">Search Hospital Nearby</h1>
 
 					</div>
 				</div>
@@ -304,7 +342,7 @@
 	<div class="testimonials page_section" id="aboutus">
 		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
 		<div class="testimonials_background_container prlx_parent">
-			<div class="testimonials_background prlx" style="background-image:url(images/background.jpg)"></div>
+			<div class="testimonials_background prlx" style="background-image:url(images/medicine.jpg)"></div>
 		</div>
 		<div class="container">
 
@@ -327,8 +365,8 @@
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">Persoal Chat with Doctors</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
+									<div class="quote">Personal Chat with Doctors</div>
+									<p class="testimonials_text">We provide personal chat service to user through which they can personally talk to doctors available on-line. They can choose doctors according to the category provided and can consult respective doctors.</p>
 									
 								</div>
 							</div>
@@ -337,7 +375,7 @@
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
 									<div class="quote">Post Your Problems</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
+									<p class="testimonials_text">A QnA portal is maintained in this site where users can post their queries and get solutions from others response/comments to the query.</p>
 									
 								</div>
 							</div>
@@ -346,7 +384,7 @@
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
 									<div class="quote">Online Medical Shopping Services</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
+									<p class="testimonials_text">An on-line medical portal is maintained where users can buy the medicines required.</p>
 									
 								</div>
 							</div>

@@ -25,7 +25,7 @@
          if($count == 1 && $row['password'] == $mypassword) {
             //echo $myusername;
             $_SESSION['username'] = $myusername;
-
+            $_SESSION['role'] = $_POST['sub1'];
             header("location:http://localhost/csp203_project/main/index.php");
 
          }else {
@@ -60,7 +60,7 @@
          if($count == 1 && $row['password'] == $mypassword) {
             //echo $myusername;
             $_SESSION['username'] = $myusername;
-
+            $_SESSION['role'] = $_POST['sub2'];
             header("location:http://localhost/csp203_project/main/index.php");
 
          }else {
