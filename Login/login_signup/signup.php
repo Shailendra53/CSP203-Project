@@ -90,6 +90,7 @@ if($count==4){
 				echo "User $username inserted";
 				session_start();
 				$_SESSION['username']=$username;
+				$_SESSION['userid'] = $connection->insert_id;
 				echo " Username : ".$row_data["username"]."<br>";
 			    header('location:http://localhost/csp203_project/main/index.php');
 			}
@@ -128,6 +129,7 @@ if($count==4){
 				echo "User $username inserted";
 				session_start();
 				$_SESSION['username']=$username;
+				$_SESSION['userid'] = $connection->insert_id;
 				echo " Username : ".$row_data["username"]."<br>";
 			    header('location:http://localhost/csp203_project/main/index.php');
 			}

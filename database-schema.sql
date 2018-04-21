@@ -51,8 +51,10 @@ CREATE TABLE shop(
 	address varchar(30) NOT NULL,
 	city_id SMALLINT UNSIGNED NOT NULL,
 	mobile	NUMERIC(15) NOT NULL,
+	userid	INT NOT NULL,
 	PRIMARY KEY(shop_id),
-	FOREIGN KEY (city_id) REFERENCES city(city_id) ON DELETE cascade ON UPDATE CASCADE
+	FOREIGN KEY (city_id) REFERENCES city(city_id) ON DELETE cascade ON UPDATE CASCADE,
+	FOREIGN KEY (userid) REFERENCES shopkeepers(userid) ON DELETE cascade ON UPDATE CASCADE
 );
 
 CREATE TABLE shop_medicine(

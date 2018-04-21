@@ -44,7 +44,7 @@
 							
 							if($_SESSION['role'] == "shopkeeper"){
 
-								echo '<li class="main_nav_item"><a href="#">Register shop</a></li>';
+								echo '<li class="main_nav_item"><a href="shopadd.php">Register shop</a></li>';
 							}
 
 							if($_SESSION['username'] != null){

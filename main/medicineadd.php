@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Check</title>
+  <title>Check</title>
 </head>
 <body>
-	<form action="http://localhost/csp203_project/main/check.php" method="post">
+  <form action="http://localhost/csp203_project/main/medicine.php" method="post">
+      <div class="input-container">
+        <input type="text" name="category" required="*">
+        <label for="#{label}">category</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="text" name="medicine" required="*">
+        <label for="#{label}">medicine</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="text" name="price" required="*">
+        <label for="#{label}">price</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="text" name="quantity" required="*">
+        <label for="#{label}">quantity</label>
+        <div class="bar"></div>
+      </div>
       <div class="input-container">
         <input type="text" name="shopid" required="*">
         <label for="#{label}">shopid</label>
         <div class="bar"></div>
       </div>
-      <div class="input-container">
-        <input type="text" name="name" required="*">
-        <label for="#{label}">shopname</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="address" required="*">
-        <label for="#{label}">address</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="userid" required="*">
-        <label for="#{label}">userid</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="mobile" required="*">
-        <label for="#{label}">Mobile</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="text" name="city" required="*">
-        <label for="#{label}">city</label>
-        <div class="bar"></div>
-      </div>
+      
       <div class="button-container">
-        <button name="addshop"><span>Next</span></button>
+        <button name="addmedicine"><span>add</span></button>
       </div>
 
     </form>

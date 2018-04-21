@@ -74,10 +74,12 @@
 
 if($count==5){
 
+
+		session_start();
 		$shopid = $_POST["shopid"];
 		$shopname = $_POST["name"];
 		$address = $_POST["address"];
-		$userid = $_POST["userid"];
+		$userid = $_SESSION["userid"];
 		$mobile = $_POST["mobile"];
 		$city = $_POST["city"];
 		$sql = "select * from shop where shop_id = '$shopid'";
@@ -87,10 +89,10 @@ if($count==5){
 		if ($answer->num_rows > 0) {
 
 			echo "shopid : ".$shopid." is already taken<br>";
-			/*echo "";
+			echo "";
 			session_start();
-			$_SESSION['error']="shopid : ".$shopid." is already taken<br>";
-		    header('location:http://localhost/csp203_project/Login/index.php');*/
+			$_SESSION['message']="Shopid : ".$shopid." is already taken<br>";
+		    header('location:http://localhost/csp203_project/main/shopadd.php');
 		} 
 		else {
 			
@@ -118,19 +120,20 @@ if($count==5){
 		} 
 
 			//mysql_insert_id()
-			$sqli = "insert into shop(shop_id,shop_name,address,city_id,mobile) values('$shopid','$shopname','$address',$cityid,$mobile);";
+			$sqli = "insert into shop(shop_id,shop_name,address,city_id,mobile,userid) values('$shopid','$shopname','$address',$cityid,$mobile,$userid);";
 			if($connection->query($sqli)){
 				echo "User $shopid inserted";
-				/*session_start();
+				session_start();
 				$_SESSION['shopid']=$shopid;
+				$_SESSION['message'] = "Shop with Shopid = ".$shopid." is Registered and will be verified soon.";
 				echo " shopid : ".$row_data["shopid"]."<br>";
-			    header('location:http://localhost/csp203_project/main/index.php');*/
+			    header('location:http://localhost/csp203_project/main/shopadd.php');
 			}
 		   	else{
 		   		echo "problem in inserfgghdftion";
-		   		/*session_start();
-				$_SESSION['error']="Signup Failed: Try Again";
-			    header('location:http://localhost/csp203_project/Login/index.php');*/
+		   		session_start();
+				$_SESSION['error']="Registration failed";
+			    header('location:http://localhost/csp203_project/main/shopadd.php');
 		   	}
 		    
 		    
