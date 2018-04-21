@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
 </head>
-<body>
+<body bgcolor="red">
 
 <div class="super_container">
 
@@ -23,7 +23,8 @@
       <div class="logo_container">
         <div class="logo">
           
-          <span>ezdoc</span>
+          <span>
+          EzDoc</span>
         </div>
       </div>
 
@@ -31,19 +32,51 @@
       <nav class="main_nav_container">
         <div class="main_nav">
           <ul class="main_nav_list">
-            <li class="main_nav_item"><a href="index.html">home</a></li>
-            <li class="main_nav_item"><a href="#">about us</a></li>
-            <li class="main_nav_item"><a href="courses.html">courses</a></li>
-            <li class="main_nav_item"><a href="elements.html">elements</a></li>
-            <li class="main_nav_item"><a href="news.html">news</a></li>
-            <li class="main_nav_item"><a href="#">contact</a></li>
+            <li class="main_nav_item"><a href="#">home</a></li>
+            <li class="main_nav_item"><a href="#aboutus">about us</a></li>
+            <li class="main_nav_item"><a href="#search">Hospitals</a></li>
+            <?php 
+              session_start();
+              
+              if($_SESSION['role'] == "shopkeeper"){
+
+                echo '<li class="main_nav_item"><a href="#">Register shop</a></li>';
+              }
+
+              if($_SESSION['username'] != null){
+
+                echo '<li class="main_nav_item"><a href="#">QnA Portal</a></li>';
+              }
+            ?>
+            
+            <li class="main_nav_item"><a href="#footer">contact</a></li>
           </ul>
         </div>
       </nav>
     </div>
     <div class="header_side d-flex flex-row justify-content-center align-items-center">
-      <img src="images/phone-call.svg" alt="">
-      <span>+43 4566 7788 2457</span>
+      
+      <span> 
+
+        <?php 
+          session_start();
+          
+          if($_SESSION['username'] != null){
+
+            echo '<form method="post" action="logout.php">      
+                    <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)">
+                  </form>';
+          }
+          else{
+
+            echo '<img src="https://image.flaticon.com/icons/svg/51/51256.svg" alt="">
+                <a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a>';
+          }
+        ?>
+
+
+      </span>
+
     </div>
 
     <!-- Hamburger -->
@@ -112,14 +145,14 @@
           
           <!-- Contact Form -->
           <div class="contact_form">
-            <div class="contact_title">Get in touch</div>
+            <div class="contact_title">Submit Feedback</div>
 
             <div class="contact_form_container">
-              <form action="post">
-                <input id="contact_form_name" class="input_field contact_form_name" type="text" placeholder="Name" required="required" data-error="Name is required.">
-                <input id="contact_form_email" class="input_field contact_form_email" type="email" placeholder="E-mail" required="required" data-error="Valid email is required.">
-                <textarea id="contact_form_message" class="text_field contact_form_message" name="message" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
-                <button id="contact_send_btn" type="button" class="contact_send_btn trans_200" value="Submit">send message</button>
+              <form action="http://localhost/csp203_project/main/post.php" method="post">
+                <input class="input_field contact_form_name" type="text" placeholder="Name" required="required" data-error="Name is required." name="Name">
+                <input class="input_field contact_form_email" type="email" placeholder="E-mail" required="required" data-error="Valid email is required." name="email">
+                <textarea class="text_field contact_form_message" name="message" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
+                <button class="contact_send_btn trans_200" name="submit">send message</button>
               </form>
             </div>
           </div>
@@ -128,8 +161,8 @@
 
         <div class="col-lg-4">
           <div class="about">
-            <div class="about_title">Join Courses</div>
-            <p class="about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies. Etiam eu purus nec eros varius luctus.</p>
+            <div class="about_title">Get in Touch</div>
+            
 
             <div class="contact_info">
               <ul>
@@ -158,17 +191,6 @@
 
       </div>
 
-      <!-- Google Map -->
-
-      <div class="row">
-        <div class="col">
-          <div id="google_map">
-            <div class="map_container">
-              <div id="map"></div>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>

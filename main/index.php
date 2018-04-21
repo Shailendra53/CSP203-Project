@@ -229,19 +229,9 @@
 		<div class="container-fluid">
 			
 			<div class="row row-eq-height">
-				<div class="col-lg-6 nopadding">
-					
-					<!-- Register -->
+				
 
-					<div class="register_section d-flex flex-column align-items-center justify-content-center">
-						<div class="register_content text-center">
-							
-						</div>
-					</div>
-
-				</div>
-
-				<div class="col-lg-6 nopadding">
+				<div class="col-lg-12 nopadding" style="height: 500px;">
 					
 					<!-- Search -->
 
@@ -349,7 +339,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="section_title text-center">
-						<h1>About Us</h1>
+						<h1>Contributors</h1>
 					</div>
 				</div>
 			</div>
@@ -365,8 +355,13 @@
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">Personal Chat with Doctors</div>
-									<p class="testimonials_text">We provide personal chat service to user through which they can personally talk to doctors available on-line. They can choose doctors according to the category provided and can consult respective doctors.</p>
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/Mukesh_Saini.jpg" alt="">
+										</div>
+										<div class="testimonial_name">Dr. Mukesh Saini</div>
+									</div>
+									<p class="testimonials_text">Assistant Professor in CSE Department at IIT Ropar.</p>
 									
 								</div>
 							</div>
@@ -374,8 +369,13 @@
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">Post Your Problems</div>
-									<p class="testimonials_text">A QnA portal is maintained in this site where users can post their queries and get solutions from others response/comments to the query.</p>
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/s.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Shailendra Kumar Gupta</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
 									
 								</div>
 							</div>
@@ -383,8 +383,39 @@
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">Online Medical Shopping Services</div>
-									<p class="testimonials_text">An on-line medical portal is maintained where users can buy the medicines required.</p>
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/a.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Abhinav Jindal</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
+								</div>
+							</div>
+
+							<div class="owl-item">
+								<div class="testimonials_item text-center">
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/m.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Meghana Batchu</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
+								</div>
+							</div>
+
+							<div class="owl-item">
+								<div class="testimonials_item text-center">
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/am.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Aluvala Mamatha</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
 									
 								</div>
 							</div>
