@@ -22,8 +22,9 @@
 <!-- Mixins-->
 <!-- Pen Title-->
 <div class="pen-title">
-	LOGIN FORM
+  LOGIN FORM
 </div>
+
 <div class="container">
   <div class="card"></div>
   <div class="card">
@@ -40,14 +41,16 @@
         <div class="bar"></div>
       </div>
       <div class="button-container">
-        <button id="sub"><span>Go</span></button>
+        <button name="sub1"><span>Users Go</span></button>
       </div>
-      
+      <br>
+      <div class="button-container">
+        <button name="sub2"><span>Shopkeepers Go</span></button>
+      </div>
       
     </form>
   </div>
   <div class="card alt">
-  	
     <div class="toggle"></div>
     <h1 class="title">Register
       <div class="close"></div>
@@ -78,6 +81,13 @@
         <label for="#{label}">Mobile</label>
         <div class="bar"></div>
       </div>
+      <div class="container1 input-container" style="height: 0px;">
+        <font style="font-weight: 100;font-size: 30px;color: white">
+          <input type="radio" name="role" value="user" style="height: 10px;position: absolute;left: 10px;top: 5px" required="*">USER<br><br>
+          <input type="radio" name="role" value="shopkeeper" style="height: 10px;position: absolute;left: 10px;top: 60px;" required="*">SHOPKEEPER
+        </font>
+      </div>
+      <br><br><br><br>
       <div class="button-container">
         <button name="signup"><span>Next</span></button>
       </div>

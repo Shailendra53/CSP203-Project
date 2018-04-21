@@ -41,6 +41,7 @@
 						<li class="main_nav_item"><a href="#search">Hospitals</a></li>
 						<li class="main_nav_item"><a href="#">Register shop</a></li>
 						<li class="main_nav_item"><a href="#">QnA Portal</a></li>
+						<li class="main_nav_item"><a href="#footer">contact</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -49,7 +50,9 @@
 			
 			<span> <form method="post" action="logout.php">
 				
-      		<input type="submit" name="logout" value="<?php session_start(); echo $_SESSION['username']; ?> (LOG OUT)">
+      		<input type="submit" name="logout" value="<?php session_start(); echo $_SESSION['username']; if($_SESSION['username'] == null){
+      			echo "GET LOST";
+      		}?> (LOG OUT)">
       	</form></span>
 
 		</div>

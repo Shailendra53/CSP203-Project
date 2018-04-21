@@ -1,0 +1,9 @@
+<div id="chatbox"><?php
+if(file_exists("log.html") && filesize("log.html") > 0){
+    $handle = fopen("log.html", "r");
+    $contents = fread($handle, filesize("log.html"));
+    fclose($handle);
+     
+    echo $contents;
+}
+?></div><div class='msgln'><i>User Jon has joined the chat session.</i><br></div><div class='msgln'>(2:05 PM) <b>Jon</b>: Hi<br></div><div class='msgln'>(2:06 PM) <b>Jon</b>: Hello<br></div><div class='msgln'><i>User Jon has joined the chat session.</i><br></div><div class='msgln'><i>User Jon has left the chat session.</i><br></div><div class='msgln'><i>User mike has joined the chat session.</i><br></div><div class='msgln'><i>User shaiu has joined the chat session.</i><br></div><div class='msgln'>(11:45 AM) <b>shaiu</b>: hello<br></div><div class='msgln'>(11:45 AM) <b>shaiu</b>: kajdk<br></div><div class='msgln'>(11:45 AM) <b>shaiu</b>: sdas<br></div><div class='msgln'>(11:45 AM) <b>shaiu</b>: asd<br></div><div class='msgln'>(11:46 AM) <b>shaiu</b>: asd<br></div><div class='msgln'><i>User shaiu has left the chat session.</i><br></div><div class='msgln'><i>User d has joined the chat session.</i><br></div><div class='msgln'><i>User d has left the chat session.</i><br></div><div class='msgln'><i>User sdf has joined the chat session.</i><br></div>

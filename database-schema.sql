@@ -13,6 +13,17 @@ CREATE TABLE users(
 	PRIMARY KEY (userid)
 );
 
+CREATE TABLE shopkeepers(
+
+	userid		INT AUTO_INCREMENT NOT NULL,
+	username 	VARCHAR(50) NOT NULL,
+	name 		VARCHAR(50) NOT NULL,
+	password	VARCHAR(50) NOT NULL,
+	email 		VARCHAR(50) NOT NULL,
+	mobile		NUMERIC(15),
+	PRIMARY KEY (userid)
+);
+
 CREATE TABLE category(
 	category_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	category_name VARCHAR(45) NOT NULL,
