@@ -32,9 +32,9 @@
       <nav class="main_nav_container">
         <div class="main_nav">
           <ul class="main_nav_list">
-            <li class="main_nav_item"><a href="#">home</a></li>
-            <li class="main_nav_item"><a href="#aboutus">about us</a></li>
-            <li class="main_nav_item"><a href="#search">Hospitals</a></li>
+            <li class="main_nav_item"><a href="index.php">home</a></li>
+            <li class="main_nav_item"><a href="aboutus.php">about us</a></li>
+            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
             <?php 
               session_start();
               
@@ -49,7 +49,7 @@
               }
             ?>
             
-            <li class="main_nav_item"><a href="#footer">contact</a></li>
+            <li class="main_nav_item"><a href="#">contact</a></li>
           </ul>
         </div>
       </nav>
@@ -138,7 +138,7 @@
 
   <!-- Contact -->
 
-  <div class="contact">
+  <div class="contact" style="background-color: #ECBBAD;">
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
@@ -215,12 +215,13 @@
             <!-- Logo -->
             <div class="logo_container">
               <div class="logo">
-                <img src="images/images.png" alt="" style="width: 20%;">
+                
                 <span>EzDoc</span>
               </div>
             </div>
 
-            <p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p>
+            <p style="color: #a5a5a5;font-size: 110%">An open health discussion portal for all. HEll kjhdfsdhfgdjhfgshdgfshjfjhfhjsdgjhgsdjf jhkshf sfjhsdkjfsd fjsdh kj ks dhs kjsh fsjhfsdkhfkdsjhf kjdsh fksd s hkhf sdkjf h</p>
+            
 
           </div>
 

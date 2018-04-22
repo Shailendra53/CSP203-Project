@@ -78,10 +78,10 @@ input{
 p
 {
 	font-family: 'Roboto', sans-serif;
-	font-size: 14px;
+	font-size: 140%;
 	line-height: 2.29;
 	font-weight: 400;
-	color: #a5a5a5;
+	color: #6F0219;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
@@ -835,7 +835,7 @@ section
 {
 	font-size: 14px;
 	font-weight: 400;
-	color: #a5a5a5;
+	color: black;
 	margin-bottom: 22px;
 }
 .contact_info_item:last-child

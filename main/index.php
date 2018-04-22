@@ -37,7 +37,7 @@
 				<div class="main_nav">
 					<ul class="main_nav_list">
 						<li class="main_nav_item"><a href="#">home</a></li>
-						<li class="main_nav_item"><a href="#aboutus">about us</a></li>
+						<li class="main_nav_item"><a href="aboutus.php">about us</a></li>
 						<li class="main_nav_item"><a href="#search">Hospitals</a></li>
 						<?php 
 							session_start();
@@ -53,7 +53,7 @@
 							}
 						?>
 						
-						<li class="main_nav_item"><a href="#footer">contact</a></li>
+						<li class="main_nav_item"><a href="contact.php">contact</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -447,15 +447,14 @@
 					<!-- Footer Column - About -->
 					<div class="col-lg-3 footer_col">
 
-						<!-- Logo -->
 						<div class="logo_container">
-							<div class="logo">
-								<img src="images/images.png" alt="" style="width: 20%;">
-								<span>EzDoc</span>
-							</div>
-						</div>
+              <div class="logo">
+                
+                <span>EzDoc</span>
+              </div>
+            </div>
 
-						<p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p>
+            <p>An open health discussion portal for all. HEll kjhdfsdhfgdjhfgshdgfshjfjhfhjsdgjhgsdjf jhkshf sfjhsdkjfsd fjsdh kj ks dhs kjsh fsjhfsdkhfkdsjhf kjdsh fksd s hkhf sdkjf h</p>
 
 					</div>
 
