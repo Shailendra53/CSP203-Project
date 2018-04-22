@@ -1,14 +1,69 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<?php include 'php/connect.php';?>
+<?php
+function runQuery($query) {
+	$result = mysqli_query(conn,$query);
+	while($row=mysqli_fetch_assoc($result)) {
+		$resultset[] = $row;
+	}		
+	if(!empty($resultset))
+		return $resultset;
+}
+
+function numRows($query) {
+	$result  = mysqli_query(conn,$query);
+	$rowcount = mysqli_num_rows($result);
+	return $rowcount;	
+}
+?>
+<?php
+session_start();
+if(!empty($_GET["action"])){
+switch($_GET["action"]) {
+	case "add":
+		if(!empty($_POST["quantity"])) {
+			$productById = runQuery("SELECT * FROM medicine WHERE medicine_id='".$_GET["medicineId"]."'");
+			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
+			
+			if(!empty($_SESSION["cart_item"])) {
+				if(in_array($productById[0]["medicine_id"],array_keys($_SESSION["cart_item"]))) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+							if($productById[0]["medicine_id"] == $k) {
+								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+									$_SESSION["cart_item"][$k]["quantity"] = 0;
+								}
+								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+							}
+					}
+				} else {
+					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+				}
+			} else {
+				$_SESSION["cart_item"] = $itemArray;
+			}
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["code"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
+}
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <!--php include-->
-<?php include 'php/connect.php';?>
 <title>EzDoc</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,28 +128,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="container">
 			
 			<div class="logo">
-				<h1 ><a href="index.html"><b>T<br>H<br>E</b>EzDoc<span>The Best Online Medical Store</span></a></h1>
+				<h1 >
+					<a href="index.php"><b>T<br>H<br>E</b>EzDoc<span>The Best Online Medical Store</span></a>
+				</h1>
 			</div>
-			<!--<div class="head-t">
-				<ul class="card">
-					<li><a href="wishlist.html" ><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a></li>
-					<li><a href="login.html" ><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
-					<li><a href="register.html" ><i class="fa fa-arrow-right" aria-hidden="true"></i>Register</a></li>
-					<li><a href="about.html" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
-					<li><a href="shipping.html" ><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li>
-				</ul>	
-			</div>
-			
-			<div class="header-ri">
-				<ul class="social-top">
-					<li><a href="#" class="icon facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span></span></a></li>
-					<li><a href="#" class="icon twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span></span></a></li>
-					<li><a href="#" class="icon pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i><span></span></a></li>
-					<li><a href="#" class="icon dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i><span></span></a></li>
-				</ul>	
-			</div>-->
-		
-
 				<div class="nav-top">
 					<nav class="navbar navbar-default">
 					
@@ -104,163 +141,26 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
-						</button>
-						
+						</button>					
 
 					</div> 
-					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-						<ul class="nav navbar-nav ">
-							<li ><a href="index.html" class="hyper "><span>Home</span></a></li>	
-							
-							<li  class="dropdown active">
-								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Kitchen<b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-			
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Water & Beverages</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Fruits & Vegetables</a></li>
-												<li><a href="kitchen.html"> <i class="fa fa-angle-right" aria-hidden="true"></i>Staples</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Branded Food</a></li>
-										
-											</ul>
-										
-										</div>
-										<div class="col-sm-3">
-										
-											<ul class="multi-column-dropdown">
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Breakfast &amp; Cereal</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Snacks</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Spices</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Biscuit &amp; Cookie</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sweets</a></li>
-										
-											</ul>
-										
-										</div>
-										<div class="col-sm-3">
-										
-											<ul class="multi-column-dropdown">
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pickle & Condiment</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Instant Food</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Dry Fruit</a></li>
-												<li><a href="kitchen.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Tea &amp; Coffee</a></li>
-										
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href="kitchen.html"><img src="images/me.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>	
-								</ul>
-							</li>
-							<li class="dropdown">
-							
-								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span> Personal Care <b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi multi1">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Ayurvedic </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Baby Care</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Cosmetics</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Deo & Purfumes</a></li>
-										
-											</ul>
-											
-										</div>
-										<div class="col-sm-3">
-											
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"> <i class="fa fa-angle-right" aria-hidden="true"></i>Hair Care </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Oral Care</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Personal Hygiene</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Skin care</a></li>
-										
-											</ul>
-											
-										</div>
-										<div class="col-sm-3">
-											
-											<ul class="multi-column-dropdown">
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Fashion Accessories </a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Grooming Tools</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Shaving Need</a></li>
-												<li><a href="care.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Sanitary Needs</a></li>
-										
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href="care.html"><img src="images/me1.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>	
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span>Household<b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi multi2">
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Cleaning Accessories</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>CookWear</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Detergents</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Gardening Needs</a></li>
-										
-											</ul>
-										
-										</div>
-										<div class="col-sm-3">
-											
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Kitchen & Dining</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>KitchenWear</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pet Care</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Plastic Wear</a></li>
-										
-											</ul>
-										
-										</div>
-										<div class="col-sm-3">
-										
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pooja Needs</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Serveware</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Safety Accessories</a></li>
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Festive Decoratives </a></li>
-										
-											</ul>
-										</div>
-										<div class="col-sm-3 w3l">
-											<a href="hold.html"><img src="images/me2.png" class="img-responsive" alt=""></a>
-										</div>
-										<div class="clearfix"></div>
-									</div>	
-								</ul>
-							</li>
-							
-							<li><a href="codes.html" class="hyper"> <span>Codes</span></a></li>
-							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
-						</ul>
-					</div>
 					</nav>
 					 <div class="cart" >
-					
-						<span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+						<a href="cart.php"><img src="images/cart.png" width=30% height=30%></a>
+						<!--span class="fa fa-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span-->
 					</div>
 					<div class="clearfix"></div>
 				</div>
 					
 				</div>			
 </div>
+
+
+
   <!---->
   <!--search form-->
-  <br/>
   <div class="search-form">
-		<form style="background-color:black" action="#" method="post">
+		<form style="background-color:black" action="search.php" method="post">
 			<input type="text" placeholder="Search..." name="Search...">
 			<input type="submit" value=" " >
 		</form>
@@ -296,40 +196,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
     </div><!-- /.carousel -->
 
 
-
-<!--content-->
-<!--<div class="kic-top ">
-	<div class="container ">
-	<div class="kic ">
-			<h3>Popular Categories</h3>
-			
-		</div>
-		<div class="col-md-4 kic-top1">
-			<a href="single.html">
-				<img src="images/ki.jpg" class="img-responsive" alt="">
-			</a>
-			<h6>Dal</h6>
-			<p>Nam libero tempore</p>
-		</div>
-		<div class="col-md-4 kic-top1">
-			<a href="single.html">
-				<img src="images/ki1.jpg" class="img-responsive" alt="">
-			</a>
-			<h6>Snacks</h6>
-			<p>Nam libero tempore</p>
-		</div>
-		<div class="col-md-4 kic-top1">
-			<a href="single.html">
-				<img src="images/ki2.jpg" class="img-responsive" alt="">
-			</a>
-			<h6>Spice</h6>
-			<p>Nam libero tempore</p>
-		</div>
-	</div>
-</div>-->
-
-
-<!-- products-->
 <?php
 if(isset($_GET['categoryID'])){
 	$categoryID=(int)$_GET['categoryID'];
@@ -350,9 +216,11 @@ $n=mysqli_num_rows($result);
 				for($a=0;$a<$n;$a++){
 					$row = mysqli_fetch_assoc($result);
 					$medicineName=$row["medicine_name"];
+					$medicineId=$row["medicine_id"];
 					$price=$row["price"];
 					$actualprice=1.1*$price;
-						echo"<div class='col-md-3 pro-1'>
+						echo"<form method='post' action='kitchen.php?categoryID=$categoryID&action=add&medicineId=$medicineId'>
+							<div class='col-md-3 pro-1'>
 								<div class='col-m'>
 								<a href='#' data-toggle='modal' data-target='#myModal1' class='offer-img'>
 										<img src='images/tablets.jpg' class='img-responsive' alt=''>
@@ -368,8 +236,9 @@ $n=mysqli_num_rows($result);
 											</div>
 											<div class='clearfix'></div>
 										</div>
+											<div><input type='text' name='quantity' value='1' size='2' /><input type='submit' value='Add to cart' class='btnAddAction' /></div></form>
 											<div class='add'>
-										   <button class='btn btn-danger my-cart-btn my-cart-b' data-id='24' data-name='Wheat' data-summary='summary 24' data-price='6.00' data-quantity='1' data-image='images/of24.png'>Add to Cart</button>
+										   <!--button class='btn btn-danger my-cart-btn my-cart-b' data-id='$medicineId' data-name=$medicineName data-summary='summary 24' data-price='$price' data-quantity='1' data-image='images/tablets.jpg'>Add to Cart</button-->
 										</div>
 									</div>
 								</div>
@@ -411,287 +280,7 @@ for($a=0;$a<$n;$a=$a+1){
 
 <br/><br/><br/>
 
-<!--content-->
-<!--		<div class="product">
-		<div class="container">
-			<div class="spec ">
-				<h3>Products</h3>
-				<div class="ser-t">
-					<b></b>
-					<span><i></i></span>
-					<b class="line"></b>
-				</div>
-			</div>
-				<div class=" con-w3l agileinf">
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-								<a href="#" data-toggle="modal" data-target="#myModal1" class="offer-img">
-										<img src="images/of24.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Wheat</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="24" data-name="Wheat" data-summary="summary 24" data-price="6.00" data-quantity="1" data-image="images/of24.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal2" class="offer-img">
-										<img src="images/of25.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html"> Peach Halves</a>(250 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$5.00</label><em class="item_price">$4.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="25" data-name="Peach Halves" data-summary="summary 25" data-price="4.50" data-quantity="1" data-image="images/of25.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal3" class="offer-img">
-										<img src="images/of26.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Banana</a>(1 kg)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$4.00</label><em class="item_price">$3.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="26" data-name="Banana" data-summary="summary 26" data-price="3.50" data-quantity="1" data-image="images/of26.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal4" class="offer-img">
-										<img src="images/of27.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Rice</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$1.00</label><em class="item_price">$0.80</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="27" data-name="Rice" data-summary="summary 27" data-price="0.80" data-quantity="1" data-image="images/of27.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-								<a href="#" data-toggle="modal" data-target="#myModal5" class="offer-img">
-										<img src="images/of28.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Oil</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="28" data-name="Oil" data-summary="summary 28" data-price="6.00" data-quantity="1" data-image="images/of28.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal6" class="offer-img">
-										<img src="images/of29.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Biscuits</a>(250 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$5.00</label><em class="item_price">$4.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="29" data-name="Biscuits" data-summary="summary 29" data-price="4.50" data-quantity="1" data-image="images/of29.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal7" class="offer-img">
-										<img src="images/of30.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Nuts</a>(1 kg)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$4.00</label><em class="item_price">$3.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="30" data-name="Nuts" data-summary="summary 30" data-price="3.50" data-quantity="1" data-image="images/of30.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal8" class="offer-img">
-										<img src="images/of31.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Rice</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$1.00</label><em class="item_price">$0.80</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="31" data-name="Rice" data-summary="summary 31" data-price="0.80" data-quantity="1" data-image="images/of31.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-								<div class="col-md-3 pro-1">
-								<div class="col-m">
-								<a href="#" data-toggle="modal" data-target="#myModal9" class="offer-img">
-										<img src="images/of32.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Noodles</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$7.00</label><em class="item_price">$6.00</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="32" data-name="Noodles" data-summary="summary 32" data-price="6.00" data-quantity="1" data-image="images/of32.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal10" class="offer-img">
-										<img src="images/of33.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Tea</a>(250 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$5.00</label><em class="item_price">$4.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="33" data-name="Tea" data-summary="summary 33" data-price="4.50" data-quantity="1" data-image="images/of33.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal11" class="offer-img">
-										<img src="images/of34.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Seafood</a>(1 kg)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$4.00</label><em class="item_price">$3.50</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="34" data-name="Seafood" data-summary="summary 34" data-price="3.50" data-quantity="1" data-image="images/of34.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3 pro-1">
-								<div class="col-m">
-									<a href="#" data-toggle="modal" data-target="#myModal12" class="offer-img">
-										<img src="images/of35.png" class="img-responsive" alt="">
-									</a>
-									<div class="mid-1">
-										<div class="women">
-											<h6><a href="single.html">Oats Idli</a>(500 g)</h6>							
-										</div>
-										<div class="mid-2">
-											<p ><label>$1.00</label><em class="item_price">$0.80</em></p>
-											  <div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id="35" data-name="Oats Idli" data-summary="summary 35" data-price="0.80" data-quantity="1" data-image="images/of35.png">Add to Cart</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						 </div>
-		</div>
-	</div>-->
+
 <!--footer-->
 <!--<div class="footer">
 	<div class="container">

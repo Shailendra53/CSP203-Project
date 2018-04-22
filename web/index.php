@@ -120,7 +120,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 						<ul class="nav navbar-nav ">
 							<li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>	
 							
-							<li class="dropdown ">
+							<!--<li class="dropdown ">
 								<a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown" ><span>Kitchen<b class="caret"></b></span></a>
 								<ul class="dropdown-menu multi">
 									<div class="row">
@@ -251,7 +251,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 							</li>
 							
 							<li><a href="codes.html" class="hyper"> <span>Codes</span></a></li>
-							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
+							<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>-->
 						</ul>
 					</div>
 					</nav>
@@ -270,8 +270,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="banner-info">
 			<h3>Search for the medicines here....</h3>	
 			<div class="search-form">
-				<form action="#" method="post">
-					<input type="text" placeholder="Search..." name="Search...">
+				<form action="search.php" method="post">
+					<input type="text" placeholder="Search..." name="Search">
 					<input type="submit" value=" " >
 				</form>
 			</div>		
