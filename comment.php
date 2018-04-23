@@ -2,25 +2,10 @@
 	session_start();
 	require('connect.php');
 	if (@$_SESSION["username"]) {
-?>	
-<!DOCTYPE html>
-<html>
-<head>
-	<title>home page</title>
-</head>
-<body>
-<?php include("header.php"); ?>
-<form action="comment.php" method="post">
-<center>
-	Topic ID: <br/> <input type="text" name="topic_id" style="width:400px;"><br/>
-	Content: <br/> <textarea style="width: 400px; min-height: 300px;" name="content"></textarea><br/>
-	<input type="submit" name="submit" value="post">
-</center>
-</form>
-</body>
-</html>
+?>
 
 <?php	
+	
 	$topicid = @$_POST['topic_id'];
 	$topic_name = @$_POST['topic_name'];
 	$content = @$_POST['content'];

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<title>Login to the discussion forum</title>
 </head>
 <body>
@@ -9,7 +10,7 @@
 	Password<input type="password" name="password"><br/>
 	
 	<input type="submit" name="submit" value="Login">
-	<button><a href = "register.php"> Register</a></button>
+	<button><a href = "index.php"> Register</a></button>
 </form>
 </body>
 </html>

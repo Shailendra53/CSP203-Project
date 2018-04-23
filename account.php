@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<title>home page</title>
 </head>
 <body>

@@ -2,16 +2,18 @@
 	session_start();
 	require('connect.php');
 	if (@$_SESSION["username"]) {
-?>	
+?>
+<center><a href="index.php">Discussion Forum</a> | <a href="account.php">My account</a> | <a href="members.php">Members</a>
+| <a href="index.php?action=logout"> logout</a></center>	
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 
 	<title>home page</title>
 </head>
 <body>
-<?php 
-include("header.php"); 
+<?php  
 	
 	$check = mysqli_query($connect,"SELECT * FROM users");
 	$rows = mysqli_num_rows($check);

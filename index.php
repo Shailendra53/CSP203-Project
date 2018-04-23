@@ -2,14 +2,16 @@
 	session_start();
 	require('connect.php');
 	if (@$_SESSION["username"]) {
-?>	
+?>
+<center><a href="index.php">Discussion Forum</a> | <a href="account.php">My account</a> | <a href="members.php">Members</a>
+| <a href="index.php?action=logout"> logout</a></center>	
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<title>home page</title>
 </head>
 <body>
-<?php include("header.php"); ?>
 <a href="post.php">Post Topic</a>
 <?php echo '<table style="border: 1px;">' ?>
 	
