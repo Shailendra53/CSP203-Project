@@ -21,9 +21,13 @@ if(!empty($_GET["action"])){
 switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
-			$productById = runQuery("SELECT * FROM medicine WHERE medicine_id='" . $_GET["medicineId"] . "'");
-			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
-			
+			$medicineIdfromGet=(int)$_GET['medicineId'];
+			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
+			$result = mysqli_query($conn,$query);
+			$rowcount = mysqli_num_rows($result);
+			while($row=mysqli_fetch_assoc($result)) {
+				$productById[] = $row;
+			}			
 			if(!empty($_SESSION["cart_item"])) {
 				if(in_array($productById[0]["medicine_id"],array_keys($_SESSION["cart_item"]))) {
 					foreach($_SESSION["cart_item"] as $k => $v) {
@@ -43,17 +47,13 @@ switch($_GET["action"]) {
 		}
 	break;
 	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
+		$medicineIdfromGet=(int)$_GET['medicineId'];
+		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=1";
+		$result = mysqli_query($conn,$sql);
 	break;
 	case "empty":
-		unset($_SESSION["cart_item"]);
+		$sql="DELETE FROM cart where person_id=1";
+		$result = mysqli_query($conn,$sql);
 	break;	
 }
 }
@@ -83,18 +83,25 @@ if(isset($_SESSION["cart_item"])){
 
 		
 
-<?php		
-    foreach ($_SESSION["cart_item"] as $item){
-			echo"
+<?php				
+	$sql="SELECT cart.medicine_id,medicine_name,sum(quantity),price from cart INNER JOIN medicine ON cart.medicine_id=medicine.medicine_id where person_id=1 GROUP BY cart.medicine_id;";
+	$result=mysqli_query($conn,$sql);
+	$rowcount = mysqli_num_rows($result);
+	while($row=mysqli_fetch_assoc($result)) {
+		echo"
 				<tr>
-				<td style='text-align:left;border-bottom:#F0F0F0 1px solid;'><strong>".$item['medicine_name']."</strong></td>
-				<td style='text-align:left;border-bottom:#F0F0F0 1px solid;'>".$item['medicine_id']."</td>
-				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$item['quantity']."</td>
-				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$item['price']."</td>
-				<td style='text-align:center;border-bottom:#F0F0F0 1px solid;'><a href='cart.php?action=remove&medicineId=".$item['medicineId']."' class='btnRemoveAction'>Remove Item</a></td>
+				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'><strong>".$row['medicine_name']."</strong></td>
+				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['medicine_id']."</td>
+				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['sum(quantity)']."</td>
+				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['price']."</td>
+				<td style='text-align:center;border-bottom:#F0F0F0 1px solid;'><a href='cart.php?action=remove&medicineId=".$row['medicine_id']."' class='btnRemoveAction'>Remove Item</a></td>
 				</tr>";
-        		$item_total += ($item["price"]*$item["quantity"]);
-		}
+        		$item_total += ($row["price"]*$row["quantity"]);
+	}
+	
+	
+	
+	
 ?>
 
 <tr>
@@ -102,5 +109,6 @@ if(isset($_SESSION["cart_item"])){
 </tr>
 </tbody>
 </table>
+<a href='cart.php?action=empty' class='btnRemoveAction'>EMPTY</a>
 
 </body>

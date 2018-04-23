@@ -40,6 +40,12 @@ CREATE TABLE shop_medicine(
 	FOREIGN KEY (medicine_id) REFERENCES medicine(medicine_id)  ON DELETE cascade ON UPDATE CASCADE
 );
 
+CREATE TABLE cart(
+	person_id SMALLINT UNSIGNED,
+	medicine_id SMALLINT UNSIGNED,
+	quantity int
+);
+
 
 	
 

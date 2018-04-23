@@ -1,65 +1,3 @@
-<?php include 'php/connect.php';?>
-<?php
-function runQuery($query) {
-	$result = mysqli_query(conn,$query);
-	while($row=mysqli_fetch_assoc($result)) {
-		$resultset[] = $row;
-	}		
-	if(!empty($resultset))
-		return $resultset;
-}
-
-function numRows($query) {
-	$result  = mysqli_query(conn,$query);
-	$rowcount = mysqli_num_rows($result);
-	return $rowcount;	
-}
-?>
-<?php
-session_start();
-if(!empty($_GET["action"])){
-switch($_GET["action"]) {
-	case "add":
-		if(!empty($_POST["quantity"])) {
-			$productById = runQuery("SELECT * FROM medicine WHERE medicine_id='".$_GET["medicineId"]."'");
-			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
-			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productById[0]["medicine_id"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productById[0]["medicine_id"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
-			}
-		}
-	break;
-	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
-	break;
-	case "empty":
-		unset($_SESSION["cart_item"]);
-	break;	
-}
-}
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +61,69 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 </head>
 <body>
+
+
+
+<?php include 'php/connect.php';?>
+<?php
+function runQuery($query) {
+	$result = mysqli_query($conn,$query);
+	while($row=mysqli_fetch_assoc($result)) {
+		$resultset[] = $row;
+	}		
+	if(!empty($resultset))
+		return $resultset;
+}
+
+function numRows($query) {
+	$result  = mysqli_query($conn,$query);
+	$rowcount = mysqli_num_rows($result);
+	return $rowcount;	
+}
+?>
+<?php
+session_start();
+if(!empty($_GET["action"])){
+switch($_GET["action"]) {
+	case "add":
+		if(!empty($_POST["quantity"])) {
+			$medicineIdfromGet=(int)$_GET['medicineId'];
+			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
+			$result = mysqli_query($conn,$query);
+			$rowcount = mysqli_num_rows($result);
+			//echo $rowcount;
+			while($row=mysqli_fetch_assoc($result)) {
+				$productById[] = $row;
+			}
+			//$productById = runQuery("SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;");
+			//$rows=numRows($query);
+			//echo $rows;
+			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
+			//echo $productById[0]["medicine_name"];
+			$quan=(int)$_POST["quantity"];
+			$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES (1,$medicineIdfromGet,$quan);";
+			$result = mysqli_query($conn,$sql);
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["medicineId"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
+}
+}
+?>
+
+
+<!--body main-->
 <div class="header">
 
 		<div class="container">

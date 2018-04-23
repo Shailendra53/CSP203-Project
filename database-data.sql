@@ -3,6 +3,13 @@ use ezdoc;
 INSERT INTO category (category_name) VALUES ("spray");
 INSERT INTO category (category_name) VALUES ("liquid");
 INSERT INTO category (category_name) VALUES ("tablets");
+INSERT INTO category (category_name) VALUES ("spray11");
+INSERT INTO category (category_name) VALUES ("liquid1");
+INSERT INTO category (category_name) VALUES ("tablets1");
+INSERT INTO category (category_name) VALUES ("spray2");
+INSERT INTO category (category_name) VALUES ("liquid2");
+INSERT INTO category (category_name) VALUES ("tablets2");
+
 INSERT INTO medicine (medicine_name,price,category_id) VALUES ("moov spray",100,1);
 INSERT INTO medicine (medicine_name,price,category_id) VALUES ("nosal spray",150,1);
 INSERT INTO medicine (medicine_name,price,category_id) VALUES ("odonil spray",70,1);
