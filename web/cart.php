@@ -1,20 +1,5 @@
 <?php include 'php/connect.php';?>
-<?php
-function runQuery($query) {
-	$result = mysqli_query(conn,$query);
-	while($row=mysqli_fetch_assoc($result)) {
-		$resultset[] = $row;
-	}		
-	if(!empty($resultset))
-		return $resultset;
-}
 
-function numRows($query) {
-	$result  = mysqli_query(conn,$query);
-	$rowcount = mysqli_num_rows($result);
-	return $rowcount;	
-}
-?>
 <?php
 session_start();
 $personId=1;
@@ -44,7 +29,10 @@ switch($_GET["action"]) {
 	case "empty":
 		$sql="DELETE FROM cart where person_id=$personId";
 		$result = mysqli_query($conn,$sql);
-	break;	
+	break;
+	case "buy":
+		header("Location: index.php");
+die();	
 }
 }
 ?>
@@ -101,5 +89,6 @@ if(isset($_SESSION["cart_item"])){
 </tbody>
 </table>
 <a href='cart.php?action=empty' class='btnRemoveAction'>EMPTY</a>
+<a href='cart.php?action=buy' class='btnRemoveAction'>BUY</a>
 
 </body>

@@ -1,60 +1,38 @@
 <?php include 'php/connect.php';?>
 <?php
-function runQuery($query) {
-	$result = mysqli_query(conn,$query);
-	while($row=mysqli_fetch_assoc($result)) {
-		$resultset[] = $row;
-	}		
-	if(!empty($resultset))
-		return $resultset;
-}
-
-function numRows($query) {
-	$result  = mysqli_query(conn,$query);
-	$rowcount = mysqli_num_rows($result);
-	return $rowcount;	
-}
-?>
-<?php
 session_start();
 if(!empty($_GET["action"])){
+$personId=1;
 switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
-			$productById = runQuery("SELECT * FROM medicine WHERE medicine_id='".$_GET["medicineId"]."'");
-			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
-			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productById[0]["medicine_id"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productById[0]["medicine_id"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
+			$medicineIdfromGet=(int)$_GET['medicineId'];
+			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
+			$result = mysqli_query($conn,$query);
+			$rowcount = mysqli_num_rows($result);
+			$quan=(int)$_POST["quantity"];
+			$sql="SELECT * FROM cart WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
+			$result = mysqli_query($conn,$sql);
+			$rowcount = mysqli_num_rows($result);
+			if($rowcount==0){
+				$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES ($personId,$medicineIdfromGet,$quan);";
+				$result = mysqli_query($conn,$sql);
+			}
+			else{
+				$sql="UPDATE cart SET quantity=quantity+$quan WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
+				$result = mysqli_query($conn,$sql);
 			}
 		}
 	break;
 	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
+		$medicineIdfromGet=(int)$_GET['medicineId'];
+		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=$personId";
+		$result = mysqli_query($conn,$sql);
 	break;
 	case "empty":
-		unset($_SESSION["cart_item"]);
-	break;	
+		$sql="DELETE FROM cart where person_id=$personId";
+		$result = mysqli_query($conn,$sql);
+	break;		
 }
 }
 ?>
@@ -197,10 +175,16 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 
 <?php
-if(isset($_POST['Search'])){
+if(isset($_POST['Search']) || isset($_SESSION['searchtext'])){
+	if(isset($_POST['Search'])){
 	$searchText=$_POST['Search'];
-$result=mysqli_query($conn,"SELECT * FROM medicine where medicine_name LIKE '%$searchText%';");
-$n=mysqli_num_rows($result);
+	}
+	else if(isset($_SESSION['searchtext'])){
+		$searchText=$_SESSION['searchtext'];
+	}
+	$result=mysqli_query($conn,"SELECT * FROM medicine where medicine_name LIKE '%$searchText%';");
+	$_SESSION['searchtext']=$searchText;
+	$n=mysqli_num_rows($result);
 		echo"<div class='product'>
 		<div class='container'>
 			<div class='spec '>
@@ -218,7 +202,7 @@ $n=mysqli_num_rows($result);
 					$medicineId=$row["medicine_id"];
 					$price=$row["price"];
 					$actualprice=1.1*$price;
-						echo"<form method='post' action='kitchen.php?categoryID=$categoryID&action=add&medicineId=$medicineId'>
+						echo"<form method='post' action='search.php?categoryID=$categoryID&action=add&medicineId=$medicineId'>
 							<div class='col-md-3 pro-1'>
 								<div class='col-m'>
 								<a href='#' data-toggle='modal' data-target='#myModal1' class='offer-img'>

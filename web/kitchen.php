@@ -66,22 +66,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 <?php include 'php/connect.php';?>
 <?php
-function runQuery($query) {
-	$result = mysqli_query($conn,$query);
-	while($row=mysqli_fetch_assoc($result)) {
-		$resultset[] = $row;
-	}		
-	if(!empty($resultset))
-		return $resultset;
-}
-
-function numRows($query) {
-	$result  = mysqli_query($conn,$query);
-	$rowcount = mysqli_num_rows($result);
-	return $rowcount;	
-}
-?>
-<?php
 session_start();
 if(!empty($_GET["action"])){
 switch($_GET["action"]) {
