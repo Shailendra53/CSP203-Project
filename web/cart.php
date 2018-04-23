@@ -17,6 +17,7 @@ function numRows($query) {
 ?>
 <?php
 session_start();
+$personId=1;
 if(!empty($_GET["action"])){
 switch($_GET["action"]) {
 	case "add":
@@ -25,34 +26,23 @@ switch($_GET["action"]) {
 			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
 			$result = mysqli_query($conn,$query);
 			$rowcount = mysqli_num_rows($result);
+			//echo $rowcount;
 			while($row=mysqli_fetch_assoc($result)) {
 				$productById[] = $row;
-			}			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productById[0]["medicine_id"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productById[0]["medicine_id"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
 			}
+			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
+			$quan=(int)$_POST["quantity"];
+			$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES (1,$medicineIdfromGet,$quan);";
+			$result = mysqli_query($conn,$sql);
 		}
 	break;
 	case "remove":
 		$medicineIdfromGet=(int)$_GET['medicineId'];
-		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=1";
+		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=$personId";
 		$result = mysqli_query($conn,$sql);
 	break;
 	case "empty":
-		$sql="DELETE FROM cart where person_id=1";
+		$sql="DELETE FROM cart where person_id=$personId";
 		$result = mysqli_query($conn,$sql);
 	break;	
 }
@@ -83,8 +73,9 @@ if(isset($_SESSION["cart_item"])){
 
 		
 
-<?php				
-	$sql="SELECT cart.medicine_id,medicine_name,sum(quantity),price from cart INNER JOIN medicine ON cart.medicine_id=medicine.medicine_id where person_id=1 GROUP BY cart.medicine_id;";
+<?php
+	$personId=1;				
+	$sql="SELECT cart.medicine_id,medicine_name,quantity,price from cart INNER JOIN medicine ON cart.medicine_id=medicine.medicine_id where person_id=$personId order by time DESC";
 	$result=mysqli_query($conn,$sql);
 	$rowcount = mysqli_num_rows($result);
 	while($row=mysqli_fetch_assoc($result)) {
@@ -92,7 +83,7 @@ if(isset($_SESSION["cart_item"])){
 				<tr>
 				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'><strong>".$row['medicine_name']."</strong></td>
 				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['medicine_id']."</td>
-				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['sum(quantity)']."</td>
+				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['quantity']."</td>
 				<td style='text-align:right;border-bottom:#F0F0F0 1px solid;'>".$row['price']."</td>
 				<td style='text-align:center;border-bottom:#F0F0F0 1px solid;'><a href='cart.php?action=remove&medicineId=".$row['medicine_id']."' class='btnRemoveAction'>Remove Item</a></td>
 				</tr>";

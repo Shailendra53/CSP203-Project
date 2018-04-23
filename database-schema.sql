@@ -43,7 +43,8 @@ CREATE TABLE shop_medicine(
 CREATE TABLE cart(
 	person_id SMALLINT UNSIGNED,
 	medicine_id SMALLINT UNSIGNED,
-	quantity int
+	quantity int,
+	time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

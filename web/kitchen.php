@@ -87,37 +87,34 @@ if(!empty($_GET["action"])){
 switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
+			$personId=1;
 			$medicineIdfromGet=(int)$_GET['medicineId'];
 			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
 			$result = mysqli_query($conn,$query);
 			$rowcount = mysqli_num_rows($result);
-			//echo $rowcount;
-			while($row=mysqli_fetch_assoc($result)) {
-				$productById[] = $row;
-			}
-			//$productById = runQuery("SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;");
-			//$rows=numRows($query);
-			//echo $rows;
-			$itemArray = array($productById[0]["medicine_id"]=>array('name'=>$productById[0]["medicine_name"], 'medicineId'=>$productById[0]["medicine_id"], 'quantity'=>$_POST["quantity"], 'price'=>$productById[0]["price"]));
-			//echo $productById[0]["medicine_name"];
 			$quan=(int)$_POST["quantity"];
-			$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES (1,$medicineIdfromGet,$quan);";
+			$sql="SELECT * FROM cart WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
 			$result = mysqli_query($conn,$sql);
+			$rowcount = mysqli_num_rows($result);
+			if($rowcount==0){
+				$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES ($personId,$medicineIdfromGet,$quan);";
+				$result = mysqli_query($conn,$sql);
+			}
+			else{
+				$sql="UPDATE cart SET quantity=quantity+$quan WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
+				$result = mysqli_query($conn,$sql);
+			}
 		}
 	break;
 	case "remove":
-		if(!empty($_SESSION["cart_item"])) {
-			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["medicineId"] == $k)
-						unset($_SESSION["cart_item"][$k]);				
-					if(empty($_SESSION["cart_item"]))
-						unset($_SESSION["cart_item"]);
-			}
-		}
+		$medicineIdfromGet=(int)$_GET['medicineId'];
+		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=$personId";
+		$result = mysqli_query($conn,$sql);
 	break;
 	case "empty":
-		unset($_SESSION["cart_item"]);
-	break;	
+		$sql="DELETE FROM cart where person_id=$personId";
+		$result = mysqli_query($conn,$sql);
+	break;		
 }
 }
 ?>
