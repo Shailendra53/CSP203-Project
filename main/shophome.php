@@ -10,6 +10,7 @@
 <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
+  
 </head>
 <body bgcolor="red">
 
@@ -23,8 +24,7 @@
       <div class="logo_container">
         <div class="logo">
           
-          <span>
-          EzDoc</span>
+          <span>EzDoc</span>
         </div>
       </div>
 
@@ -33,14 +33,14 @@
         <div class="main_nav">
           <ul class="main_nav_list">
             <li class="main_nav_item"><a href="index.php">home</a></li>
-            <li class="main_nav_item"><a href="#">about us</a></li>
+            <li class="main_nav_item"><a href="aboutus.php">about us</a></li>
             <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
             <?php 
               session_start();
               
               if($_SESSION['role'] == "shopkeeper"){
 
-                echo '<li class="main_nav_item"><a href="shopadd.php">Register shop</a></li>';
+                echo '<li class="main_nav_item"><a href="#">Register shop</a></li>';
               }
 
               if($_SESSION['username'] != null){
@@ -131,8 +131,9 @@
     <div class="home_background_container prlx_parent">
       <div class="home_background prlx" style="background-image:url(images/contact_background.jpg)"></div>
     </div>
+    
     <div class="home_content">
-      <h1>About Us</h1>
+      <h1>Your Shop</h1>
     </div>
   </div>
 
@@ -141,38 +142,78 @@
   <div class="contact" style="background-color: #ECBBAD;">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
           
           <!-- Contact Form -->
           <div class="contact_form">
-            <div class="contact_title">What is EzDoc?</div>
-
+            <?php
+                session_start();
+                echo '<div class="contact_title" style="color: #6F0219;">'.$_SESSION['message'].'</div>';
+            ?>
             
-              <p>
-                EzDoc is an open discussion portal where people with health issues can ask either personal queries to any doctor or can post their problems online so that others give suggestions regarding that problem. 
-              </p>            
-          </div>
-
-          <div class="contact_title">Why EzDoc?</div>
-
             
-              <p style="font-size: 150%;">
-                Consulting doctors even for a cough or cold is very expensive now a days. Also no one likes to visit any medical store and stand in queue to get your medicines in time. So EzDoc is an open discussion portal made to overcome these problems in some way by providing people an online portal where they can discuss about their issues by saving their time as well as their money. This portal provides an online medicine store with home delivery services. Also a chat portal is maintained where users can personally live chat with online available doctors for personal issues. This portal also provides service of tracing nearby hospitals or medical stores around any given city.
-              </p>
-          </div>
 
+            <?php 
 
-          <!-- <div class="contact_title"></div>
+                if($_SESSION['role'] == "shopkeeper"){
 
+                
+                  echo '<div class="contact_title">'.$_SESSION['shopname'].'</div>';
+
+                echo '<div class="contact_form_container">
+                
+                  <form action="http://localhost/csp203_project/main/medicineadd.php" method="post">
+                      
+                      <div class="button-container">
+                        <button name="submit" class="contact_send_btn trans_200"><span>Update Medicines</span></button>
+                      </div>
+
+                    </form>
+                </div>';
+              }
+              else{
+
+                echo '<h1 style="color:#6F0219;">You Don\'t Have Authentication to this page</h1>';
+              }
+
+              
+                 
+
+            ?>
             
-              <p style="font-size: 150%;">
-                Consulting doctors even for a cough or cold is very expensive now a days. Also no one likes to visit any medical store and stand in queue to get your medicines in time. So EzDoc is an open discussion portal made to overcome these problems in some way by providing people an online portal where they can discuss about their issues by saving their time as well as their money. This portal provides an online medicine store with home delivery services. Also a chat portal is maintained where users can personally live chat with online available doctors for personal issues.
-              </p> -->
           </div>
             
         </div>
 
-        
+        <div class="col-lg-4">
+          <div class="about">
+            <div class="about_title">Get in Touch</div>
+            
+
+            <div class="contact_info">
+              <ul>
+                <li class="contact_info_item">
+                  <div class="contact_info_icon">
+                    <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                  </div>
+                  Blvd Libertad, 34 m05200 Arévalo
+                </li>
+                <li class="contact_info_item">
+                  <div class="contact_info_icon">
+                    <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                  </div>
+                  0034 37483 2445 322
+                </li>
+                <li class="contact_info_item">
+                  <div class="contact_info_icon">
+                    <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                  </div>hello@company.com
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
 
       </div>
 
@@ -308,3 +349,24 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Check</title>
+</head>
+<body>
+  
+</body>
+</html>
+ -->

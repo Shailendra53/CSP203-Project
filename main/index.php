@@ -109,6 +109,21 @@
 					<li class="menu_item menu_mm"><a href="elements.html">Elements</a></li>
 					<li class="menu_item menu_mm"><a href="news.html">News</a></li>
 					<li class="menu_item menu_mm"><a href="contact.html">Contact</a></li>
+					<?php 
+					session_start();
+					
+					if($_SESSION['username'] != null){
+
+						echo '<form method="post" action="logout.php">			
+      							<input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)">
+      						</form>';
+					}
+					else{
+
+						echo '<li class="menu_item menu_mm">
+								<a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a></li>';
+					}
+				?>
 				</ul>
 
 				<!-- Menu Social -->

@@ -10,6 +10,7 @@
 <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
+  
 </head>
 <body bgcolor="red">
 
@@ -32,8 +33,8 @@
         <div class="main_nav">
           <ul class="main_nav_list">
             <li class="main_nav_item"><a href="index.php">home</a></li>
-            <li class="main_nav_item"><a href="index.php">about us</a></li>
-            <li class="main_nav_item"><a href="index.php">Hospitals</a></li>
+            <li class="main_nav_item"><a href="aboutus.php">about us</a></li>
+            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
             <?php 
               session_start();
               
@@ -48,7 +49,7 @@
               }
             ?>
             
-            <li class="main_nav_item"><a href="#footer">contact</a></li>
+            <li class="main_nav_item"><a href="contact.php">contact</a></li>
           </ul>
         </div>
       </nav>
@@ -138,7 +139,7 @@
 
   <!-- Contact -->
 
-  <div class="contact">
+  <div class="contact" style="background-color: #ECBBAD;">
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
@@ -147,22 +148,67 @@
           <div class="contact_form">
             <?php
                 session_start();
-                echo '<div class="contact_title" style="color: #C60F09;">'.$_SESSION['message'].'</div>';
+                echo '<div class="contact_title" style="color: #6F0219;">'.$_SESSION['message'].'</div>';
             ?>
             
-            <div class="contact_title">Add your shop to this site</div>
+            
 
             <?php 
 
                 if($_SESSION['role'] == "shopkeeper"){
 
+                  define('DB_SERVER', 'localhost');
+                 define('DB_category', 'root');
+                 define('DB_address', 'root');
+                 define('DB_DATABASE', 'ezdoc');
+                 $connection = mysqli_connect(DB_SERVER,DB_category,DB_address,DB_DATABASE);
+
+                  session_start();
+
+                  $userid = $_SESSION['userid'];
+                  //echo $userid;
+                  $sql = "select * from shop where userid = $userid";
+
+                  $answer = $connection->query($sql);
+
+                  $check = "";
+
+                  if ($answer->num_rows > 0) {
+                      
+                      //$row = mysqli_fetch_assoc($answer);
+                      echo '<h1 style="color:#6F0219;">Your Shops:</h1>';
+                      echo '<table class="table" style="color:black">
+                              <thead>
+                                <tr>
+                                  <th style="border: solid black; width: 10%;">Sr. No.</th>
+                                  <th style="border: solid black;">Shop ID</th>
+                                  <th style="border: solid black;">Shop Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>';
+                      $count = 0;
+                      while ($row = mysqli_fetch_assoc($answer)) {
+                        $count = $count + 1;
+                        $check = $check." ".$row['shop_id']." ".$row['shop_name'];
+                        echo '   <tr>
+                                    <td style="border: solid black; text-align: center;">'.$count.'</td>
+                                    <td style="border: solid black;">'.$row['shop_id'].'</td>
+                                    <td style="border: solid black;">
+                                    <form method="post" action="news.php?shopname='.$row['shop_name'].'">
+                                    <input type="submit" value="'.$row['shop_name'].'">
+                                    </form>
+                                    </td>
+                                  </tr>';
+                    }
+                    echo '  </tbody>
+                           </table>';
+
+                  }
+
+                  echo '<div class="contact_title">Add your shops to this site</div>';
+
                 echo '<div class="contact_form_container">
-                <!--   <form action="http://localhost/csp203_project/main/post.php" method="post">
-                    <input class="input_field contact_form_name" type="text" placeholder="Name" required="required" data-error="Name is required." name="Name">
-                    <input class="input_field contact_form_email" type="email" placeholder="E-mail" required="required" data-error="Valid email is required." name="email">
-                    <textarea class="text_field contact_form_message" name="message" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
-                    <button class="contact_send_btn trans_200" name="submit">send message</button>
-                  </form> -->
+                
                   <form action="http://localhost/csp203_project/main/check.php" method="post">
                       <div class="input-container">
                         <input type="text" name="shopid" required="*" class="input_field contact_form_name" placeholder="Shop ID">
@@ -199,12 +245,16 @@
                       </div>
 
                     </form>
-                </div>';
+                </div>';  
               }
               else{
 
-                echo '<h1>You Don\'t Have Authentication to this page</h1>';
+                echo '<h1 style="color:#6F0219;">You Don\'t Have Authentication to this page</h1>';
               }
+
+              
+                 
+
             ?>
             
           </div>
@@ -267,12 +317,12 @@
             <!-- Logo -->
             <div class="logo_container">
               <div class="logo">
-                <img src="images/images.png" alt="" style="width: 20%;">
+                
                 <span>EzDoc</span>
               </div>
             </div>
 
-            <p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p>
+            <p style="color: #a5a5a5;font-size: 110%">An open health discussion portal for all. HEll kjhdfsdhfgdjhfgshdgfshjfjhfhjsdgjhgsdjf jhkshf sfjhsdkjfsd fjsdh kj ks dhs kjsh fsjhfsdkhfkdsjhf kjdsh fksd s hkhf sdkjf h</p>
 
           </div>
 

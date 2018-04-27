@@ -1,5 +1,4 @@
 <?php
-echo "str";
 	define('DB_SERVER', 'localhost');
    define('DB_category', 'root');
    define('DB_address', 'root');
@@ -152,7 +151,10 @@ if($count==5){
 
 				if($connection->query($sqlcomm)){
 					echo "UPDATED";
-					
+					session_start();
+					$_SESSION['medicine']=$medicine;
+					$_SESSION['message'] = "Medicine ".$medicine." is Updated in Shop Id: ".$shopid;
+				    header('location:http://localhost/csp203_project/main/medicineadd.php');
 				}
 			   	else{
 			   		echo "problem in Update";
@@ -168,11 +170,17 @@ if($count==5){
 			$sqli = "insert into shop_medicine(shop_id,medicine_id,quantity) values('$shopid',$medicineid,$quantity);";
 			if($connection->query($sqli)){
 				echo "INSERTED";
-				
+				session_start();
+				$_SESSION['medicine']=$medicine;
+				$_SESSION['message'] = "Medicine ".$medicine." is Updated in Shop Id: ".$shopid;
+			    header('location:http://localhost/csp203_project/main/medicineadd.php');
 			}
 		   	else{
 		   		echo "problem in insertion3";
-		   		
+		   		session_start();
+				$_SESSION['medicine']=$medicine;
+				$_SESSION['message'] = "Problem in Insertion: Wrong Shop Id.";
+			    header('location:http://localhost/csp203_project/main/medicineadd.php');
 		   	}
 
 		}

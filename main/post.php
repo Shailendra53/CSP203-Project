@@ -1,4 +1,6 @@
 <?php
+
+	echo "coming";
 	if(isset($_POST["submit"])){
 		// Checking For Blank Fields..
 		if($_POST["Name"]==""||$_POST["email"]==""||$_POST["message"]==""){
@@ -11,30 +13,61 @@
 			$email =filter_var($email, FILTER_SANITIZE_EMAIL);
 			// Validate E-mail Address
 			$email= filter_var($email, FILTER_VALIDATE_EMAIL);
-			if (!$email){
-			echo "Invalid Sender's Email";
-			}
-			else{
-				$subject = "Feedback";
-				$message = $_POST['message']."\r\n";
-				echo $email;
-				//$headers = 'From:'. $email . "\r\n"; // Sender's Email
-				 $headers = 'From: '.$email."\r\n".
-				 'Reply-To: '.$email."\r\n" .
-				 'X-Mailer: PHP/' . phpversion();
-				//$headers .= 'Cc:'. $email2 . "rn"; // Carbon copy to Sender
-				// Message lines should not exceed 70 characters (PHP rule), so wrap it
-				//$message = wordwrap($message, 70);
-				// Send Mail By PHP Mail Function
-				if(mail('2016csb1059@iitrpr.ac.in', $subject, $message)){
+			
 
-					echo "Your mail has been sent successfuly ! Thank you for your feedback";
-				}
-				else{
-					echo "mail not sent";
-				}
-				
+		
+
+			// Import PHPMailer classes into the global namespace
+			// These must be at the top of your script, not inside a function
+			use PHPMailer\PHPMailer\PHPMailer;
+			use PHPMailer\PHPMailer\Exception;
+
+			//Load Composer's autoloader
+			require 'vendor/autoload.php';
+
+			$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+			try {
+			    //Server settings
+			    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+			    $mail->isSMTP();                                      // Set mailer to use SMTP
+			    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+			    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+			    $mail->Username = 'abckbc321@gmail.com';                 // SMTP username
+			    $mail->Password = 'abckbc@123';                           // SMTP password
+			    $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+			    $mail->Port = 465;  
+			    $mail->SMTPOptions = array(
+					'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true
+					)
+				);                                  // TCP port to connect to
+
+			    //Recipients
+			    echo '$email';
+			    $mail->setFrom('abckbc321@gmail.com');
+			   // $mail->addAddress('prasad23kshirsagar@gmail.com');     // Add a recipient
+			   // $mail->addAddress('2016csb1124@iitrpr.ac.in');     // Add a recipient
+			    $mail->addAddress('abckbc321@gmail.com');     // Add a recipient
+			   // $mail->addAddress('2016csb1064@iitrpr.ac.in');     // Add a recipient
+			   // $mail->addAddress('2016csb1053@iitrpr.ac.in');     // Add a recipient
+			    
+			   
+			    //Content
+			    $mail->isHTML(true);                                  // Set email format to HTML
+			    $mail->Subject = 'Feedback';
+			    $mail->Body    = $_POST['message'];
+			    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+			    $mail->send();
+			    echo 'Message has been sent';
+			} catch (Exception $e) {
+			    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 			}
 		}
+
 	}
 ?>
+
+

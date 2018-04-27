@@ -443,7 +443,7 @@ section
 }
 .hamburger_container:hover i
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 
 /*********************************
@@ -521,7 +521,7 @@ section
 }
 .menu_item a:hover
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 .menu_close_container
 {
@@ -568,7 +568,7 @@ section
 .menu_close_container:hover .menu_close,
 .menu_close_container:hover .menu_close::after
 {
-	background: #ffb606;
+	background: #C60F09;
 }
 
 /*********************************
@@ -602,7 +602,7 @@ section
 }
 .menu_social_item a i:hover
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 .menu_container.active .menu_social_container
 {
