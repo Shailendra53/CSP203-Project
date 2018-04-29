@@ -83,7 +83,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav ">
-							<li class=" active"><a href="index.php" class="hyper "><span>Home</span></a></li>	
+							<li class=" active"><a href="../main/index.php" class="hyper "><span>Home</span></a></li>
 						</ul>
 					</div>
 					</nav>
@@ -234,3 +234,4 @@ for($a=0;$a<$n;$a=$a+3){
  
 </body>
 </html>
+

@@ -63,46 +63,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 
 <?php include 'php/connect.php';?>
-<?php
-session_start();
-if(!empty($_GET["action"])){
-switch($_GET["action"]) {
-	case "add":
-		if(!empty(json_decode($_POST["quantity"]))) {
-			echo json_decode($_POST["quantity"]);
-			$personId=1;
-			$medicineIdfromGet=(int)$_GET['medicineId'];
-			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
-			$result = mysqli_query($conn,$query);
-			$rowcount = mysqli_num_rows($result);
-			$quan=(int)$_POST["quantity"];
-			$sql="SELECT * FROM cart WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
-			$result = mysqli_query($conn,$sql);
-			$rowcount = mysqli_num_rows($result);
-			if($rowcount==0){
-				$sql="INSERT INTO cart (person_id,medicine_id,quantity) VALUES ($personId,$medicineIdfromGet,$quan);";
-				$result = mysqli_query($conn,$sql);
-			}
-			else{
-				$sql="UPDATE cart SET quantity=quantity+$quan WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
-				$result = mysqli_query($conn,$sql);
-			}
-		}
-	break;
-	case "remove":
-		$medicineIdfromGet=(int)$_GET['medicineId'];
-		$sql="DELETE FROM cart where medicine_id=$medicineIdfromGet and person_id=$personId";
-		$result = mysqli_query($conn,$sql);
-	break;
-	case "empty":
-		$sql="DELETE FROM cart where person_id=$personId";
-		$result = mysqli_query($conn,$sql);
-	break;		
-}
-}
-?>
-
-
 <!--body main-->
 <div class="header">
 
@@ -208,7 +168,7 @@ $n=mysqli_num_rows($result);
 									</a>
 									<div class='mid-1'>
 										<div class='women'>
-											<h6><a href='single.html'>$medicineName</a></h6>							
+											<h6>$medicineName</h6>							
 										</div>
 										<div class='mid-2'>
 											<p ><label>$actualprice</label><em class='item_price'>$price</em></p>
@@ -377,7 +337,7 @@ for($a=0;$a<$n;$a++){
 						<div class='modal-body modal-spa'>
 								<div class='col-md-5 span-2'>
 											<div class='item'>
-												<img src='images/of24.png' class='img-responsive' alt=''>
+												<img src='images/tablets.jpg' class='img-responsive' alt=''>
 											</div>
 								</div>
 								<div class='col-md-7 span-1 '>
@@ -390,7 +350,7 @@ for($a=0;$a<$n;$a++){
 									<h4 class='quick'>Quick Overview:</h4>
 									<p class='quick_desc'>$desc</p>
 									 <div class='add-to'>
-										   <!--button class='btn btn-danger my-cart-btn my-cart-btn1 ' data-id='$medicineId' data-name='$medicineName' data-summary='summary 24' data-price='$price' data-quantity='1' data-image='images/of24.png'>Add to Cart</button-->
+										   <!--button class='btn btn-danger my-cart-btn my-cart-btn1 ' data-id='$medicineId' data-name='$medicineName' data-summary='summary 24' data-price='$price' data-quantity='1' data-image='images/tablets.jpg'>Add to Cart</button-->
 										</div>
 								</div>
 								<div class='clearfix'> </div>

@@ -1,10 +1,11 @@
 <?php include '../php/connect.php';?>
 <?php
+//$personId=$_SESSION["userid"];
+$personId=1;
 if(!empty($_GET["action"])){
 switch($_GET["action"]) {
 	case "add":
 		if(!empty(json_decode($_POST["quantity"]))) {
-			$personId=1;
 			$medicineIdfromGet=(int)$_GET['medicineId'];
 			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
 			$result = mysqli_query($conn,$query);
