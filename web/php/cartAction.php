@@ -1,15 +1,15 @@
+<?php include '../php/connect.php';?>
 <?php
-session_start();
 if(!empty($_GET["action"])){
-$personId=1;
 switch($_GET["action"]) {
 	case "add":
-		if(!empty($_POST["quantity"])) {
+		if(!empty(json_decode($_POST["quantity"]))) {
+			$personId=1;
 			$medicineIdfromGet=(int)$_GET['medicineId'];
 			$query="SELECT * FROM medicine WHERE medicine_id=$medicineIdfromGet;";
 			$result = mysqli_query($conn,$query);
 			$rowcount = mysqli_num_rows($result);
-			$quan=(int)$_POST["quantity"];
+			$quan=(int)json_decode($_POST["quantity"]);
 			$sql="SELECT * FROM cart WHERE medicine_id=$medicineIdfromGet and person_id=$personId;";
 			$result = mysqli_query($conn,$sql);
 			$rowcount = mysqli_num_rows($result);
@@ -35,3 +35,6 @@ switch($_GET["action"]) {
 }
 }
 ?>
+<body>
+xaJCBSJCBK
+</body>
