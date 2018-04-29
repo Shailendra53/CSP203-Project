@@ -109,6 +109,7 @@ a, a:hover, a:visited, a:active, a:link
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	color: white;
 }
 p a:active
 {
@@ -315,7 +316,7 @@ section
 }
 .header_content
 {
-	width: calc(100% - 279px);
+	width: 100%;
 	height: 100%;
 }
 .header_content::before
@@ -834,13 +835,12 @@ section
 }
 .hero_box_content
 {
-	padding-left: 13px;
-	padding-top: 11px;
-	margin-top: -6px;
+	text-align: center;
 }
 .hero_box_title
 {
-	
+
+	text-transform: uppercase;
 }
 .hero_box_link
 {
@@ -1116,7 +1116,10 @@ section
 }
 input:last-of-type
 {
-	margin-bottom: 0px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
 }
 .input_field:focus
 {

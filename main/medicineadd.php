@@ -31,15 +31,15 @@
       <nav class="main_nav_container">
         <div class="main_nav">
           <ul class="main_nav_list">
-            <li class="main_nav_item"><a href="index.php">home</a></li>
-            <li class="main_nav_item"><a href="aboutus.php">about us</a></li>
+            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php">home</a></li>
+            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/aboutus.php">about us</a></li>
             <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
             <?php 
               session_start();
               
               if($_SESSION['role'] == "shopkeeper"){
 
-                echo '<li class="main_nav_item"><a href="shopadd.php">Register shop</a></li>';
+                echo '<li class="main_nav_item"><a href="http://localhost/csp203_project/main/shopadd.php">Register shop</a></li>';
               }
 
               if($_SESSION['username'] != null){
@@ -48,7 +48,7 @@
               }
             ?>
             
-            <li class="main_nav_item"><a href="contact.php">contact</a></li>
+            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/contact.php">contact</a></li>
           </ul>
         </div>
       </nav>
@@ -62,13 +62,13 @@
           
           if($_SESSION['username'] != null){
 
-            echo '<form method="post" action="logout.php">      
-                    <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)">
+            echo '<form method="post" action="http://localhost/csp203_project/main/logout.php">      
+                    <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)" class="inp">
                   </form>';
           }
           else{
 
-            echo '<img src="https://image.flaticon.com/icons/svg/51/51256.svg" alt="">
+            echo '<i class="fas fa-user"></i>&#160&#160
                 <a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a>';
           }
         ?>
@@ -97,12 +97,38 @@
     <div class="menu_inner menu_mm">
       <div class="menu menu_mm">
         <ul class="menu_list menu_mm">
-          <li class="menu_item menu_mm"><a href="index.html">Home</a></li>
-          <li class="menu_item menu_mm"><a href="#">About us</a></li>
-          <li class="menu_item menu_mm"><a href="courses.html">Courses</a></li>
-          <li class="menu_item menu_mm"><a href="elements.html">Elements</a></li>
-          <li class="menu_item menu_mm"><a href="news.html">News</a></li>
-          <li class="menu_item menu_mm"><a href="#">Contact</a></li>
+          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/index.php">Home</a></li>
+          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/aboutus.php">About us</a></li>
+          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
+          <?php 
+              session_start();
+              
+              if($_SESSION['role'] == "shopkeeper"){
+
+                echo '<li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/shopadd.php">Register shop</a></li>';
+              }
+
+              if($_SESSION['username'] != null){
+
+                echo '<li class="menu_item menu_mm"><a href="#">QnA Portal</a></li>';
+              }
+            ?>
+          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/contact.php">Contact</a></li>
+          <?php 
+          session_start();
+          
+          if($_SESSION['username'] != null){
+
+            echo '<li class="menu_item menu_mm"><form method="post" action="http://localhost/csp203_project/main/logout.php">      
+                    <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)" class="check">
+                  </form></li>';
+          }
+          else{
+
+            echo '<li class="menu_item menu_mm">
+                <a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a></li>';
+          }
+        ?>
         </ul>
 
         <!-- Menu Social -->
@@ -159,27 +185,27 @@
                 echo '<div class="contact_form_container">
                   <form action="http://localhost/csp203_project/main/medicine.php" method="post">
                       <div class="input-container">
-                        <input type="text" name="category" required="*" class="input_field contact_form_name" placeholder="Category">
+                        <input type="text" name="category" required="*" class="input_field contact_form_name" placeholder="Category" style="color:black;">
                         <!-- <label for="#{label}">shopid</label> -->
                         <div class="bar"></div>
                       </div>
                       <div class="input-container">
-                        <input type="text" name="medicine" required="*" class="input_field contact_form_name" placeholder="Medicine Name">
+                        <input type="text" name="medicine" required="*" class="input_field contact_form_name" placeholder="Medicine Name" style="color:black;">
                         <!-- <label for="#{label}">shopname</label> -->
                         <div class="bar"></div>
                       </div>
                       <div class="input-container">
-                        <input type="text" name="price" required="*" class="input_field contact_form_name" placeholder="Price">
+                        <input type="text" name="price" required="*" class="input_field contact_form_name" placeholder="Price" style="color:black;">
                         <!-- <label for="#{label}">address</label> -->
                         <div class="bar"></div>
                       </div>
                       <div class="input-container">
-                        <input type="text" name="quantity" required="*" class="input_field contact_form_name" placeholder="Quantity">
+                        <input type="text" name="quantity" required="*" class="input_field contact_form_name" placeholder="Quantity" style="color:black;">
                         <!-- <label for="#{label}">userid</label> -->
                         <div class="bar"></div>
                       </div>
                       <div class="input-container">
-                        <input type="text" name="shopid" required="*" class="input_field contact_form_name" placeholder="Shop Id">
+                        <input type="text" name="shopid" required="*" class="input_field contact_form_name" placeholder="Shop Id" style="color:black;">
                         <!-- <label for="#{label}">Mobile</label> -->
                         <div class="bar"></div>
                       </div>
@@ -251,38 +277,52 @@
         <div class="row">
 
           <!-- Footer Column - About -->
-          <div class="col-lg-3 footer_col">
+          <div class="col-lg-5 footer_col">
 
-            <!-- Logo -->
             <div class="logo_container">
-              <div class="logo">
-                
-                <span>EzDoc</span>
-              </div>
-            </div>
+                    <div class="logo">
+                      
+                      <span>EzDoc</span>
+                    </div>
+                  </div>
 
-            <p style="color: #a5a5a5;font-size: 110%">An open health discussion portal for all. HEll kjhdfsdhfgdjhfgshdgfshjfjhfhjsdgjhgsdjf jhkshf sfjhsdkjfsd fjsdh kj ks dhs kjsh fsjhfsdkhfkdsjhf kjdsh fksd s hkhf sdkjf h</p>
+                  <p>EzDoc is an open discussion portal where people with health issues can ask either personal queries to any doctor or can post their problems online so that others give suggestions regarding that problem. </p>
 
           </div>
 
+          <div class="col-lg-2 footer_col"></div>
+
           <!-- Footer Column - Menu -->
 
-          <div class="col-lg-3 footer_col">
+          <div class="col-lg-2 footer_col">
             <div class="footer_column_title">Menu</div>
             <div class="footer_column_content">
               <ul>
-                <li class="footer_list_item"><a href="#">Home</a></li>
-                <li class="footer_list_item"><a href="#">About Us</a></li>
-                <li class="footer_list_item"><a href="courses.html">Courses</a></li>
-                <li class="footer_list_item"><a href="news.html">News</a></li>
-                <li class="footer_list_item"><a href="contact.html">Contact</a></li>
+                <li class="footer_list_item"><a href="index.php">Home</a></li>
+                <li class="footer_list_item"><a href="aboutus.php">About Us</a></li>
+                <li class="footer_list_item"><a href="#">QnA Portal</a></li>
+                <li class="footer_list_item"><a href="contact.php">Contact</a></li>
+                <?php 
+                  session_start();
+                  
+                  if($_SESSION['username'] != null){
+
+                    echo '<li class="footer_list_item"><form method="post" action="logout.php">     
+                            <input type="submit" name="logout" value="'.$_SESSION['username'].' [LOG OUT]">
+                          </form></li>';
+                  }
+                  else{
+
+                    echo '<li class="footer_list_item"><a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a></li>';
+                  }
+                ?>
               </ul>
             </div>
           </div>
 
           <!-- Footer Column - Usefull Links -->
 
-          <div class="col-lg-3 footer_col">
+          <!-- <div class="col-lg-3 footer_col">
             <div class="footer_column_title">Usefull Links</div>
             <div class="footer_column_content">
               <ul>
@@ -293,7 +333,7 @@
                 <li class="footer_list_item"><a href="#">Tuitions</a></li>
               </ul>
             </div>
-          </div>
+          </div> -->
 
           <!-- Footer Column - Contact -->
 
