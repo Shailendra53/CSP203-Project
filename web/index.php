@@ -61,7 +61,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!---//End-rate---->
 
 </head>
-<body>
+<body onload="var p = '<?php session_start(); echo $_SESSION['mes']; $_SESSION['mes'] = ''; ?>'; if(p!=''){alert(p);}">
 <div class="header">
 
 		<div class="container">
@@ -104,7 +104,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<div class="banner-info">
 			<h3>Search for the medicines here....</h3>	
 			<div class="search-form">
-				<form action="search.php" method="post">
+				<form action="search.php?page=1" method="post">
 					<input type="text" placeholder="Search..." name="Search">
 					<input type="submit" value=" " >
 				</form>
@@ -156,7 +156,7 @@ for($a=0;$a<$n;$a=$a+3){
 				$categoryID=$row["category_id"];	
 				echo "<div class='col-md-4 m-w3ls1'>
 					<div class='col-md '>
-						<a href='kitchen.php?categoryID=$categoryID'>
+						<a href='kitchen.php?categoryID=$categoryID&page=1'>
 							<img src='images/co.jpg' class='img-responsive img' alt=''>
 							<div class='big-sale'>
 								<div class='big-sale1'>

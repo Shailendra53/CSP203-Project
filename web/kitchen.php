@@ -3,6 +3,24 @@
 <head>
 <!--php include-->
 <title>EzDoc</title>
+<!--for pagination-->
+<style>
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
+
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -33,31 +51,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
-<!--- start-rate---->
-<script src="js/jstarbox.js"></script>
-	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
-		<script type="text/javascript">
-			jQuery(function() {
-			jQuery('.starbox').each(function() {
-				var starbox = jQuery(this);
-					starbox.starbox({
-					average: starbox.attr('data-start-value'),
-					changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
-					ghosting: starbox.hasClass('ghosting'),
-					autoUpdateAverage: starbox.hasClass('autoupdate'),
-					buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
-					stars: starbox.attr('data-star-count') || 5
-					}).bind('starbox-value-changed', function(event, value) {
-					if(starbox.hasClass('random')) {
-					var val = Math.random();
-					starbox.next().text(' '+val);
-					return val;
-					} 
-				})
-			});
-		});
-		</script>
-<!---//End-rate-->
 
 </head>
 <body>
@@ -103,7 +96,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
   <!---->
   <!--search form-->
   <div class="search-form">
-		<form style="background-color:black" action="search.php" method="post">
+		<form style="background-color:black" action="search.php?page=1" method="post">
 			<input type="text" placeholder="Search..." name="Search">
 			<input type="submit" value=" " >
 		</form>
@@ -141,6 +134,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <?php
 if(isset($_GET['categoryID'])){
 	$categoryID=(int)$_GET['categoryID'];
+	$page=(int)$_GET['page'];
 }
 $result=mysqli_query($conn,"SELECT * FROM medicine where category_id=$categoryID;");
 $n=mysqli_num_rows($result);
@@ -155,72 +149,20 @@ $n=mysqli_num_rows($result);
 				</div>
 			</div>
 				<div class=' con-w3l agileinf'>";
-				for($a=0;$a<$n;$a++){
-					$row = mysqli_fetch_assoc($result);
-					$medicineName=$row["medicine_name"];
-					$medicineId=$row["medicine_id"];
-					$price=$row["price"];
-					$actualprice=1.1*$price;
-					$model="#myModal".$a;
-						echo"<form id='formoid".$a."' method='post' action='php/cartAction.php?categoryID=$categoryID&action=add&medicineId=$medicineId'>
-							<div class='col-md-3 pro-1'>
-								<div class='col-m'>
-								<a href='#' data-toggle='modal' data-target='$model' class='offer-img'>
-										<img src='images/tablets.jpg' class='img-responsive' alt=''>
-									</a>
-									<div class='mid-1'>
-										<div class='women'>
-											<h6>$medicineName</h6>							
-										</div>
-										<div class='mid-2'>
-											<p ><label>$actualprice</label><em class='item_price'>$price</em></p>
-											  <div class='block'>
-												<!--div class='starbox small ghosting'> </div-->
-											</div>
-											<div class='clearfix'></div>
-										</div>
-											<div><input id='medicineId$a' type='text' name='quantity' value='1' size='2' /><input type='submit' value='Add to cart' class='btnAddAction'  /></div></form>
-											<div class='add'>
-										   <!--button class='btn btn-danger my-cart-btn my-cart-b' data-id='$medicineId' data-name=$medicineName data-summary='summary 24' data-price='$price' data-quantity='1' data-image='images/tablets.jpg'>Add to Cart</button-->
-										</div>
-									</div>
-								</div>
-							</div>";?>
+				include("onsinglepage.php");?>
 							
-							<script type='text/javascript'>
-							$(<?php echo "'#formoid$a'"?>).submit(function(event) {
-								console.log($(<?php echo "'#medicineId$a'"?>).val())
-							  event.preventDefault();
-							  var $form = $( this ),
-								url = $form.attr( 'action' );
-							  $.ajax({
-							  	url: url,
-							  	type: "POST",
-							  	data: { "quantity" : $(<?php echo "'#medicineId$a'"?>).val()},
-							  	success: function(data){
-							  			alert('added to cart');
-							  			console.log(data)
-							  		},
-							  	error: function(error){
-							  		alert('failed');
-							  		console.log(error)
-							  	}
-							  });
-
-							  
-							});
-						</script>
-							<?php } 
-							
-					echo"<div class='clearfix'></div>
+					<div class='clearfix'></div>
 						 </div>
 		</div>
-	</div>";
+	</div>
 
-
-
-?>
-
+<!--page-->
+<center>
+<div class='pagination'>
+  <a href='kitchen.php?categoryID=<?php $page--; echo "$categoryID&page=$page";?>'>&laquo;</a>
+  <a href='kitchen.php?categoryID=<?php $page=$page+2; echo "$categoryID&page=$page";?>'>&raquo;</a>
+</div>
+</center>
 <!-- category names-->
 <?php
 $result=mysqli_query($conn,'SELECT * FROM category;');
@@ -235,7 +177,7 @@ for($a=0;$a<$n;$a=$a+1){
 	$category=$row["category_name"];
 	$categoryID=$row["category_id"];
 	echo"<div class='col-md-4 kic-top1'>
-			<a href='kitchen.php?categoryID=$categoryID'>
+			<a href='kitchen.php?categoryID=$categoryID&page=1'>
 				<!--img src='images/spray.jpg' class='img-responsive' alt=''-->
 				<h6>$category</h6>
 			</a>

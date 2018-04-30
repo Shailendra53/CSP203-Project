@@ -19,5 +19,7 @@
 				$sql="delete from cart where person_id=$personId";
 				$result1=mysqli_query($conn,$sql);
 	}
-	header('location:index.php');
+	session_start();
+    $_SESSION['mes'] = "Order placed";
+    header('location:index.php');
 ?>	
