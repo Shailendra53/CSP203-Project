@@ -29,7 +29,7 @@
   <div class="card"></div>
   <div class="card">
     <h1 class="title">Login</h1>
-    <form action="http://localhost/csp203_project/Login/login_signup/login_action.php" method="post">
+    <form action="login_signup/login_action.php" method="post">
       <div class="input-container">
         <input type="text" name="username" required="required"/>
         <label for="#{label}">Username</label>
@@ -55,7 +55,7 @@
     <h1 class="title">Register
       <div class="close"></div>
     </h1>
-    <form action="http://localhost/csp203_project/Login/login_signup/signup.php" method="post">
+    <form action="login_signup/signup.php" method="post">
       <div class="input-container">
         <input type="text" name="username" required="*">
         <label for="#{label}">Username</label>

@@ -31,15 +31,15 @@
       <nav class="main_nav_container">
         <div class="main_nav">
           <ul class="main_nav_list">
-            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php">home</a></li>
-            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/aboutus.php">about us</a></li>
-            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
+            <li class="main_nav_item"><a href="index.php">home</a></li>
+            <li class="main_nav_item"><a href="aboutus.php">about us</a></li>
+            <li class="main_nav_item"><a href="index.php#search">Hospitals</a></li>
             <?php 
               session_start();
               
               if($_SESSION['role'] == "shopkeeper"){
 
-                echo '<li class="main_nav_item"><a href="http://localhost/csp203_project/main/shopadd.php">Register shop</a></li>';
+                echo '<li class="main_nav_item"><a href="shopadd.php">Register shop</a></li>';
               }
 
               if($_SESSION['username'] != null){
@@ -48,7 +48,7 @@
               }
             ?>
             
-            <li class="main_nav_item"><a href="http://localhost/csp203_project/main/contact.php">contact</a></li>
+            <li class="main_nav_item"><a href="contact.php">contact</a></li>
           </ul>
         </div>
       </nav>
@@ -62,14 +62,14 @@
           
           if($_SESSION['username'] != null){
 
-            echo '<form method="post" action="http://localhost/csp203_project/main/logout.php">      
+            echo '<form method="post" action="logout.php">      
                     <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)" class="inp">
                   </form>';
           }
           else{
 
             echo '<i class="fas fa-user"></i>&#160&#160
-                <a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a>';
+                <a href="../Login/index.php">Login/Sign Up</a>';
           }
         ?>
 
@@ -97,15 +97,15 @@
     <div class="menu_inner menu_mm">
       <div class="menu menu_mm">
         <ul class="menu_list menu_mm">
-          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/index.php">Home</a></li>
-          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/aboutus.php">About us</a></li>
-          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/index.php#search">Hospitals</a></li>
+          <li class="menu_item menu_mm"><a href="index.php">Home</a></li>
+          <li class="menu_item menu_mm"><a href="aboutus.php">About us</a></li>
+          <li class="menu_item menu_mm"><a href="index.php#search">Hospitals</a></li>
           <?php 
               session_start();
               
               if($_SESSION['role'] == "shopkeeper"){
 
-                echo '<li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/shopadd.php">Register shop</a></li>';
+                echo '<li class="menu_item menu_mm"><a href="shopadd.php">Register shop</a></li>';
               }
 
               if($_SESSION['username'] != null){
@@ -113,20 +113,20 @@
                 echo '<li class="menu_item menu_mm"><a href="#">QnA Portal</a></li>';
               }
             ?>
-          <li class="menu_item menu_mm"><a href="http://localhost/csp203_project/main/contact.php">Contact</a></li>
+          <li class="menu_item menu_mm"><a href="contact.php">Contact</a></li>
           <?php 
           session_start();
           
           if($_SESSION['username'] != null){
 
-            echo '<li class="menu_item menu_mm"><form method="post" action="http://localhost/csp203_project/main/logout.php">      
+            echo '<li class="menu_item menu_mm"><form method="post" action="logout.php">      
                     <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)" class="check">
                   </form></li>';
           }
           else{
 
             echo '<li class="menu_item menu_mm">
-                <a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a></li>';
+                <a href="../Login/index.php">Login/Sign Up</a></li>';
           }
         ?>
         </ul>
@@ -183,7 +183,7 @@
                 if($_SESSION['role'] == "shopkeeper"){
 
                 echo '<div class="contact_form_container">
-                  <form action="http://localhost/csp203_project/main/medicine.php" method="post">
+                  <form action="medicine.php" method="post">
                       <div class="input-container">
                         <input type="text" name="category" required="*" class="input_field contact_form_name" placeholder="Category" style="color:black;">
                         <!-- <label for="#{label}">shopid</label> -->
@@ -191,6 +191,11 @@
                       </div>
                       <div class="input-container">
                         <input type="text" name="medicine" required="*" class="input_field contact_form_name" placeholder="Medicine Name" style="color:black;">
+                        <!-- <label for="#{label}">shopname</label> -->
+                        <div class="bar"></div>
+                      </div>
+                      <div class="input-container">
+                        <input type="text" name="medicine" required="*" class="input_field contact_form_name" placeholder="Description" style="color:black;">
                         <!-- <label for="#{label}">shopname</label> -->
                         <div class="bar"></div>
                       </div>
@@ -313,7 +318,7 @@
                   }
                   else{
 
-                    echo '<li class="footer_list_item"><a href="http://localhost/csp203_project/Login/index.php">Login/Sign Up</a></li>';
+                    echo '<li class="footer_list_item"><a href="../Login/index.php">Login/Sign Up</a></li>';
                   }
                 ?>
               </ul>

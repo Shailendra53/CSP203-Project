@@ -35,6 +35,7 @@ CREATE TABLE medicine(
 	medicine_name VARCHAR(45) NOT NULL,
 	category_id SMALLINT UNSIGNED,
 	price FLOAT UNSIGNED,
+	description TEXT,
 	PRIMARY KEY  (medicine_id),
 	FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE cascade ON UPDATE CASCADE
 );

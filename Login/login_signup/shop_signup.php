@@ -91,6 +91,7 @@ if($count==4){
 				session_start();
 				$_SESSION['username']=$username;
 				$_SESSION['userid'] = mysqli_insert_id();
+				
 				echo " Username : ".$row_data["username"]."<br>";
 			    header('location:http://localhost/csp203_project/main/index.php');
 			}

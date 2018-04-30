@@ -8,7 +8,7 @@
 	if(isset($_POST['addmedicine'])){
 	$count=0;
 	$shopidErr = $categoryErr = $medicineErr = $priceErr = $quantityErr = "";
-	$shopid = $category=$medicine = $price = $quantity = "";
+	$shopid = $category=$medicine = $price = $quantity = $description = "";
 	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  if (empty($_POST["category"])) {
@@ -71,6 +71,8 @@
 			$count=$count+1;
 		}
 	  }
+
+	  $description = $_POST['description'];
 	}
 
 if($count==5){
@@ -125,7 +127,7 @@ if($count==5){
 		}
 		else{
 			echo $categoryid;
-			$sqli = "insert into medicine(medicine_name,category_id) values('$medicine',$categoryid);";
+			$sqli = "insert into medicine(medicine_name,category_id,price,description) values('$medicine',$categoryid,$price,'$description');";
 			
 			if($connection->query($sqli)){
 				$medicineid = $connection->insert_id;

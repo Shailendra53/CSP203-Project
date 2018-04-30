@@ -130,6 +130,7 @@ if($count==4){
 				session_start();
 				$_SESSION['username']=$username;
 				$_SESSION['userid'] = $connection->insert_id;
+				$_SESSION['role'] = "shopkeeper";
 				echo " Username : ".$row_data["username"]."<br>";
 			    header('location:http://localhost/csp203_project/main/index.php');
 			}
