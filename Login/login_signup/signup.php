@@ -64,9 +64,9 @@
 if($count==4){
 
 
+	if($_POST['role'] == "user"){
 
 
-		
 		$username = $_POST["username"];
 		$name = $_POST["name"];
 		$pass = $_POST["password"];
@@ -80,18 +80,73 @@ if($count==4){
 		if ($answer->num_rows > 0) {
 
 			echo "Username : ".$username." is already taken<br>";
+			session_start();
+			$_SESSION['error']="Username : ".$username." is already taken<br>";
+		    header('location:index.php');
 		} 
 		else {
-			$sqli = "insert into users values('$username','$name','$pass','$email',$mobile);";
-			$connection->query($sqli);
-		    echo "User $username inserted";
-		    session_start();
-			$_SESSION['username']=$username;
-			echo " Username : ".$row_data["username"]."<br>";
-		    header('location:http://localhost/csp203_project/main/index.php');
+			$sqli = "insert into users(username,name,password,email,mobile) values('$username','$name','$pass','$email',$mobile);";
+			if($connection->query($sqli)){
+				echo "User $username inserted";
+				session_start();
+				$_SESSION['username']=$username;
+				$_SESSION['userid'] = $connection->insert_id;
+				echo " Username : ".$row_data["username"]."<br>";
+			    header('location:../../main/index.php');
+			}
+		   	else{
+		   		session_start();
+				$_SESSION['error']="Signup Failed: Try Again";
+			    header('location:index.php');
+		   	}
+		    
 		    
 			
 		}
+	}
+	else if($_POST['role'] == "shopkeeper"){
+
+		$username = $_POST["username"];
+		$name = $_POST["name"];
+		$pass = $_POST["password"];
+		$email = $_POST["email"];
+		$mobile = $_POST["mobile"];
+		
+		$sql = "select * from shopkeepers where username = '$username'";
+
+		$answer = $connection->query($sql);
+
+		if ($answer->num_rows > 0) {
+
+			echo "Username : ".$username." is already taken<br>";
+			session_start();
+			$_SESSION['error']="Username : ".$username." is already taken<br>";
+		    header('location:index.php');
+		} 
+		else {
+			$sqli = "insert into shopkeepers(username,name,password,email,mobile) values('$username','$name','$pass','$email',$mobile);";
+			if($connection->query($sqli)){
+				echo "User $username inserted";
+				session_start();
+				$_SESSION['username']=$username;
+				$_SESSION['userid'] = $connection->insert_id;
+				$_SESSION['role'] = "shopkeeper";
+				echo " Username : ".$row_data["username"]."<br>";
+			    header('location:../../main/index.php');
+			}
+		   	else{
+		   		session_start();
+				$_SESSION['error']="Signup Failed: Try Again";
+			    header('location:index.php');
+		   	}
+		    
+		    
+			
+		}
+	}
+
+		
+		
 }
 
 }

@@ -11,28 +11,80 @@
       $myusername = mysqli_real_escape_string($connection,$_POST['username']);
       $mypassword = mysqli_real_escape_string($connection,$_POST['password']); 
       //echo "here";
-      $sql = "SELECT * FROM users WHERE username = '$myusername' and pwd = '$mypassword'";
-      $result = mysqli_query($connection,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-      
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
-         //echo $myusername;
-         $_SESSION['username'] = $myusername;
 
-         header("location:http://localhost/csp203_project/main/index.php");
+      if(isset($_POST['sub1'])){
 
-      }else {
+         $sql = "SELECT * FROM users WHERE username = '$myusername'";
+         $result = mysqli_query($connection,$sql);
+         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
          
-         $error = "Your Login Name or Password is invalid";
-         $_SESSION['error'] = $error;
-         echo $error;
-         header('location:http://localhost/csp203_project/Login/index.php');
+         $count = mysqli_num_rows($result);
+         
+         // If result matched $myusername and $mypassword, table row must be 1 row
+         
+         if($count == 1 && $row['password'] == $mypassword) {
+            //echo $myusername;
+            $_SESSION['username'] = $myusername;
+            $_SESSION['userid'] = $row['userid'];
+            $_SESSION['role'] = $_POST['sub1'];
+            header("location:../../main/index.php");
+
+         }else {
+            
+            if($count == 1){
+
+               $error = "Your Password is invalid";
+               $_SESSION['error'] = $error;
+               echo $error;
+               header('location:../index.php');
+            }
+            else{
+
+               $error = "Username doesn't exists";
+               $_SESSION['error'] = $error;
+               echo $error;
+               header('location:../index.php');
+            }
+            
+         }
       }
+      else if(isset($_POST['sub2'])){
+
+         $sql = "SELECT * FROM shopkeepers WHERE username = '$myusername'";
+         $result = mysqli_query($connection,$sql);
+         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+         
+         $count = mysqli_num_rows($result);
+         
+         // If result matched $myusername and $mypassword, table row must be 1 row
+         
+         if($count == 1 && $row['password'] == $mypassword) {
+            //echo $myusername;
+            $_SESSION['username'] = $myusername;
+            $_SESSION['userid'] = $row['userid'];
+            $_SESSION['role'] = $_POST['sub2'];
+            header("location:../../main/index.php");
+
+         }else {
+            
+            if($count == 1){
+
+               $error = "Your Password is invalid";
+               $_SESSION['error'] = $error;
+               echo $error;
+               header('location:../index.php');
+            }
+            else{
+
+               $error = "Username doesn't exists";
+               $_SESSION['error'] = $error;
+               echo $error;
+               header('location:../index.php');
+            }
+            
+         }
+      }
+      
    }
 
 ?>

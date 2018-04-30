@@ -109,6 +109,7 @@ a, a:hover, a:visited, a:active, a:link
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	color: white;
 }
 p a:active
 {
@@ -315,7 +316,7 @@ section
 }
 .header_content
 {
-	width: calc(100% - 279px);
+	width: 100%;
 	height: 100%;
 }
 .header_content::before
@@ -329,6 +330,7 @@ section
 	content: '';
 	box-shadow: 0px 20px 49px rgba(0,0,0,0.67);
 	z-index: -1;
+	background-color: white;
 }
 
 /*********************************
@@ -338,7 +340,7 @@ section
 .logo_container
 {
 	display: inline-block;
-	padding-left: 76px;
+	padding-left: 50px;
 }
 .logo span
 {
@@ -389,7 +391,7 @@ section
 }
 .main_nav_item a:hover
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 
 /*********************************
@@ -400,7 +402,7 @@ section
 {
 	width: 279px;
 	height: 100%;
-	background: #ffb606;
+	background: #C60F09;
 }
 .header_side img
 {
@@ -442,7 +444,7 @@ section
 }
 .hamburger_container:hover i
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 
 /*********************************
@@ -520,7 +522,7 @@ section
 }
 .menu_item a:hover
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 .menu_close_container
 {
@@ -567,7 +569,7 @@ section
 .menu_close_container:hover .menu_close,
 .menu_close_container:hover .menu_close::after
 {
-	background: #ffb606;
+	background: #C60F09;
 }
 
 /*********************************
@@ -601,7 +603,7 @@ section
 }
 .menu_social_item a i:hover
 {
-	color: #ffb606;
+	color: #C60F09;
 }
 .menu_container.active .menu_social_container
 {
@@ -696,11 +698,14 @@ section
 {
 	font-size: 72px;
 	font-weight: 400;
-	color: #FFFFFF;
+	color: #C60F09;
+	font-family: sans-serif;
+	font-weight: bolder;
+	margin-top: 60%;
 }
 .hero_slide_content h1 span
 {
-	background: #ffb606;
+	margin-top: 50%;
 	padding-left: 13px;
 	padding-right: 13px;
 	margin-left: -12px;
@@ -748,11 +753,11 @@ section
 }
 .hero_slider_nav:hover
 {
-	background: #ffb606;
+	background: #C60F09;
 }
 .hero_slider_nav:hover span
 {
-	color: #FFFFFF;
+	color: black;
 }
 .hero_slider_nav span
 {
@@ -793,14 +798,20 @@ section
 .hero_box
 {
 	width: 100%;
-	height: 161px;
-	background: #1a1a1a;
-	padding-left: 50px;
+	height: 60px;
+	background: #C60F09;
+	padding-left: 60px;
 	cursor: pointer;
+	margin-top: 60px;
+	text-align: center;
+	color: white;
+	margin-bottom: 7px;
 }
 .hero_box:hover
 {
-	background: #ffb606;
+	background: transparent;
+	box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+	color: #C60F09;
 }
 .hero_box img
 {
@@ -820,31 +831,34 @@ section
 .hero_box:hover svg path
 {
 	fill: #FFFFFF;
+	color: #C60F09;
+}
+
+.ch:hover
+{
+	color: #C60F09;	
 }
 .hero_box_content
 {
-	padding-left: 13px;
-	padding-top: 11px;
-	margin-top: -6px;
+	text-align: center;
 }
 .hero_box_title
 {
-	font-size: 24px;
-	font-weight: 500;
-	color: #FFFFFF;
-	margin-bottom: 7px;
+
+	text-transform: uppercase;
 }
 .hero_box_link
 {
 	font-size: 12px;
 	font-weight: 500;
 	text-transform: uppercase;
-	color: #FFFFFF;
+	color: #C60F09;
 	padding-left: 3px;
 }
 .hero_box_link:hover
 {
 	color: #1a1a1a;
+
 }
 
 /*********************************
@@ -863,7 +877,7 @@ section
 .section_title h1
 {
 	display: block;
-	color: #1a1a1a;
+	color: #C60F09;
 	font-weight: 500;
 	padding-top: 24px;
 }
@@ -1014,7 +1028,8 @@ section
 .register_section
 {
 	width: 100%;
-	background: #ffb606;
+	height: 600px;
+	background: darkgrey;
 	padding-top: 156px;
 	padding-bottom: 161px;
 }
@@ -1106,7 +1121,10 @@ section
 }
 input:last-of-type
 {
-	margin-bottom: 0px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
 }
 .input_field:focus
 {
@@ -1202,7 +1220,7 @@ input:last-of-type
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	opacity: 0.27;
+	opacity: 0.4;
 }
 .testimonials .section_title h1
 {
@@ -1222,11 +1240,11 @@ input:last-of-type
 .quote
 {
 	font-size: 36px;
-	color: #ffb606;
+	color: #2ef;
 }
 .testimonials_text
 {
-	color: #FFFFFF;
+	color: ;
 	margin-bottom: 0px;
 }
 .testimonial_user
@@ -1283,7 +1301,7 @@ input:last-of-type
 	width: 16px !important;
 	height: 16px !important;
 	border: none;
-	background: #ffb606 !important;
+	background: #4989B5 !important;
 }
 
 /*********************************

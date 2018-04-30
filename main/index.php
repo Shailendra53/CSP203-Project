@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Course</title>
+<title>EzDoc - Home</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Course Project">
@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="styles/map.css">
 </head>
 <body>
 
@@ -25,8 +26,9 @@
 			<!-- Logo -->
 			<div class="logo_container">
 				<div class="logo">
-					<img src="images/logo.png" alt="">
-					<span>EzDoc</span>
+					
+					<span>
+					EzDoc</span>
 				</div>
 			</div>
 
@@ -35,21 +37,51 @@
 				<div class="main_nav">
 					<ul class="main_nav_list">
 						<li class="main_nav_item"><a href="#">home</a></li>
-						<li class="main_nav_item"><a href="#">about us</a></li>
-						<li class="main_nav_item"><a href="courses.html">courses</a></li>
-						<li class="main_nav_item"><a href="elements.html">elements</a></li>
-						<li class="main_nav_item"><a href="news.html">news</a></li>
-						<li class="main_nav_item"><a href="contact.html">contact</a></li>
+						<li class="main_nav_item"><a href="aboutus.php">about us</a></li>
+						<li class="main_nav_item"><a href="#search">Hospitals</a></li>
+						<?php 
+							session_start();
+							
+							if($_SESSION['role'] == "shopkeeper"){
+
+								echo '<li class="main_nav_item"><a href="shopadd.php">Register shop</a></li>';
+							}
+
+							if($_SESSION['username'] != null){
+
+								echo '<li class="main_nav_item"><a href="changepassword.php">Change Password</a></li>';
+							}
+						?>
+						
+						<li class="main_nav_item"><a href="contact.php">contact</a></li>
 					</ul>
 				</div>
 			</nav>
 		</div>
+
+		
 		<div class="header_side d-flex flex-row justify-content-center align-items-center">
 			
-			<span> <form method="post" action="logout.php">
-				
-      		<input type="submit" name="logout" value="<?php session_start(); echo $_SESSION['username']; ?> (LOG OUT)">
-      	</form></span>
+			<span> 
+
+				<?php 
+					session_start();
+					
+					if($_SESSION['username'] != null){
+
+						echo '<form method="post" action="logout.php">			
+      							<input type="submit" name="logout" value="'.$_SESSION['username'].' [LOG OUT]">
+      						</form>';
+					}
+					else{
+
+						echo '<i class="fas fa-user"></i>&#160&#160
+								<a href="../Login/index.php">Login/Sign Up</a>';
+					}
+				?>
+
+
+			</span>
 
 		</div>
 
@@ -72,13 +104,39 @@
 		<div class="menu_inner menu_mm">
 			<div class="menu menu_mm">
 				<ul class="menu_list menu_mm">
-					<li class="menu_item menu_mm"><a href="#">Home</a></li>
-					<li class="menu_item menu_mm"><a href="#">About us</a></li>
-					<li class="menu_item menu_mm"><a href="courses.html">Courses</a></li>
-					<li class="menu_item menu_mm"><a href="elements.html">Elements</a></li>
-					<li class="menu_item menu_mm"><a href="news.html">News</a></li>
-					<li class="menu_item menu_mm"><a href="contact.html">Contact</a></li>
-				</ul>
+          <li class="menu_item menu_mm"><a href="#">Home</a></li>
+          <li class="menu_item menu_mm"><a href="aboutus.php">About us</a></li>
+          <li class="menu_item menu_mm"><a href="index.php#search">Hospitals</a></li>
+          <?php 
+              session_start();
+              
+              if($_SESSION['role'] == "shopkeeper"){
+
+                echo '<li class="menu_item menu_mm"><a href="shopadd.php">Register shop</a></li>';
+              }
+
+              if($_SESSION['username'] != null){
+
+                echo '<li class="menu_item menu_mm"><a href="#">QnA Portal</a></li>';
+              }
+            ?>
+          <li class="menu_item menu_mm"><a href="contact.php">Contact</a></li>
+          <?php 
+          session_start();
+          
+          if($_SESSION['username'] != null){
+
+            echo '<li class="menu_item menu_mm"><form method="post" action="logout.php">      
+                    <input type="submit" name="logout" value="'.$_SESSION['username'].'(LOG OUT)" class="check">
+                  </form></li>';
+          }
+          else{
+
+            echo '<li class="menu_item menu_mm">
+                <a href="../Login/index.php">Login/Sign Up</a></li>';
+          }
+        ?>
+        </ul>
 
 				<!-- Menu Social -->
 				
@@ -109,30 +167,22 @@
 				
 				<!-- Hero Slide -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+					<div class="hero_slide_background" style="background-image:url(images/background.jpg);"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
 						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"> We are here to HELP!</h1>
 						</div>
 					</div>
 				</div>
 				
-				<!-- Hero Slide -->
-				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
-					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
-						</div>
-					</div>
-				</div>
+				
 				
 				<!-- Hero Slide -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+					<div class="hero_slide_background" style="background-image:url(images/background.jpg)"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
 						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Your Health First!</h1>
 						</div>
 					</div>
 				</div>
@@ -145,111 +195,69 @@
 
 	</div>
 
-	<div class="hero_boxes">
-		<div class="hero_boxes_inner">
-			<div class="container">
-				<div class="row">
 
-					<div class="col-lg-4 hero_box_col">
-						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-							<img src="images/earth-globe.svg" class="svg" alt="">
-							<div class="hero_box_content">
-								<h2 class="hero_box_title">Online Courses</h2>
-								<a href="courses.html" class="hero_box_link">view more</a>
+
+	<?php 
+		session_start();
+		if($_SESSION['username'] != null){
+
+			echo '<div class="hero_boxes">
+					<div class="hero_boxes_inner">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-lg-4 hero_box_col">
+									<div class="hero_box d-flex flex-row align-items-center justify-content-start" class="ch">
+										
+										<div class="hero_box_content" class="ch">
+											<a href="../web/index.php" class="ch"><h2 class="hero_box_title" style="padding-left:30%">QnA Portal</h2></a>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 hero_box_col">
+									<div class="hero_box d-flex flex-row align-items-center justify-content-start" class="ch">
+										
+										<div class="hero_box_content" class="ch">
+											<a href="../web/index.php" class="ch"><h2 class="hero_box_title" >Online medical store</h2></a>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 hero_box_col">
+									<div class="hero_box d-flex flex-row align-items-center justify-content-start">
+										
+										<div class="hero_box_content">
+											<h2 class="hero_box_title" style="padding-left:23%">Chat Portal</h2>
+										</div>
+									</div>
+								</div>
+
+
 							</div>
 						</div>
 					</div>
+				</div>';
 
-					<div class="col-lg-4 hero_box_col">
-						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-							<img src="images/books.svg" class="svg" alt="">
-							<div class="hero_box_content">
-								<h2 class="hero_box_title">Our Library</h2>
-								<a href="courses.html" class="hero_box_link">view more</a>
-							</div>
-						</div>
-					</div>
 
-					<div class="col-lg-4 hero_box_col">
-						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-							<img src="images/professor.svg" class="svg" alt="">
-							<div class="hero_box_content">
-								<h2 class="hero_box_title">Our Teachers</h2>
-								<a href="teachers.html" class="hero_box_link">view more</a>
-							</div>
-						</div>
-					</div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+		}
+	?>
+	
 
 	<!-- Popular -->
 
-	<div class="popular page_section">
+	<div class="popular page_section" id="search">
+		<div class="testimonials_background_container prlx_parent">
+			<div class="prlx" style="background-image:url(images/back.jpg);-webkit-filter: brightness(0.87);
+    filter: brightness(0.87); background-repeat: no-repeat;background-size: cover;background-position: center; "></div>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="section_title text-center">
-						<h1>Popular Courses</h1>
-					</div>
-				</div>
-			</div>
+						<h1 style="font-size: 450%; color: ">Search Hospital Nearby</h1>
 
-			<div class="row course_boxes">
-				
-				<!-- Popular Course Item -->
-				<div class="col-lg-4 course_box">
-					<div class="card">
-						<img class="card-img-top" src="images/course_1.jpg" alt="https://unsplash.com/@kellybrito">
-						<div class="card-body text-center">
-							<div class="card-title"><a href="courses.html">A complete guide to design</a></div>
-							<div class="card-text">Adobe Guide, Layes, Smart Objects etc...</div>
-						</div>
-						<div class="price_box d-flex flex-row align-items-center">
-							<div class="course_author_image">
-								<img src="images/author.jpg" alt="https://unsplash.com/@mehdizadeh">
-							</div>
-							<div class="course_author_name">Michael Smith, <span>Author</span></div>
-							<div class="course_price d-flex flex-column align-items-center justify-content-center"><span>$29</span></div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Popular Course Item -->
-				<div class="col-lg-4 course_box">
-					<div class="card">
-						<img class="card-img-top" src="images/course_2.jpg" alt="https://unsplash.com/@cikstefan">
-						<div class="card-body text-center">
-							<div class="card-title"><a href="courses.html">Beginners guide to HTML</a></div>
-							<div class="card-text">Adobe Guide, Layes, Smart Objects etc...</div>
-						</div>
-						<div class="price_box d-flex flex-row align-items-center">
-							<div class="course_author_image">
-								<img src="images/author.jpg" alt="https://unsplash.com/@mehdizadeh">
-							</div>
-							<div class="course_author_name">Michael Smith, <span>Author</span></div>
-							<div class="course_price d-flex flex-column align-items-center justify-content-center"><span>$29</span></div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Popular Course Item -->
-				<div class="col-lg-4 course_box">
-					<div class="card">
-						<img class="card-img-top" src="images/course_3.jpg" alt="https://unsplash.com/@dsmacinnes">
-						<div class="card-body text-center">
-							<div class="card-title"><a href="courses.html">Advanced Photoshop</a></div>
-							<div class="card-text">Adobe Guide, Layes, Smart Objects etc...</div>
-						</div>
-						<div class="price_box d-flex flex-row align-items-center">
-							<div class="course_author_image">
-								<img src="images/author.jpg" alt="https://unsplash.com/@mehdizadeh">
-							</div>
-							<div class="course_author_name">Michael Smith, <span>Author</span></div>
-							<div class="course_price d-flex flex-column align-items-center justify-content-center"><span>$29</span></div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -257,128 +265,124 @@
 	</div>
 
 	<!-- Register -->
+	
 
 	<div class="register">
 
 		<div class="container-fluid">
 			
 			<div class="row row-eq-height">
-				<div class="col-lg-6 nopadding">
-					
-					<!-- Register -->
+				
 
-					<div class="register_section d-flex flex-column align-items-center justify-content-center">
-						<div class="register_content text-center">
-							<h1 class="register_title">Register now and get a discount <span>50%</span> discount until 1 January</h1>
-							<p class="register_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempo.</p>
-							<div class="button button_1 register_button mx-auto trans_200"><a href="#">register now</a></div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="col-lg-6 nopadding">
+				<div class="col-lg-12 nopadding" style="height: 500px;">
 					
 					<!-- Search -->
 
-					<div class="search_section d-flex flex-column align-items-center justify-content-center">
-						<div class="search_background" style="background-image:url(images/search_background.jpg);"></div>
-						<div class="search_content text-center">
-							<h1 class="search_title">Search for your course</h1>
-							<form id="search_form" class="search_form" action="post">
-								<input id="search_form_name" class="input_field search_form_name" type="text" placeholder="Course Name" required="required" data-error="Course name is required.">
-								<input id="search_form_category" class="input_field search_form_category" type="text" placeholder="Category">
-								<input id="search_form_degree" class="input_field search_form_degree" type="text" placeholder="Degree">
-								<button id="search_submit_button" type="submit" class="search_submit_button trans_200" value="Submit">search course</button>
-							</form>
-						</div> 
-					</div>
+					
+						<input id="pac-input" class="controls" type="text" placeholder="Search Box" value="Hospital near " style="height: 30px;margin-top: 10px">
+						<div id="map"></div>
+					
 
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Services -->
+	<script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
 
-	<div class="services page_section">
-		
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="section_title text-center">
-						<h1>Our Services</h1>
-					</div>
-				</div>
-			</div>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-			<div class="row services_row">
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/earth-globe.svg" alt="">
-					</div>
-					<h3>Online Courses</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/exam.svg" alt="">
-					</div>
-					<h3>Indoor Courses</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/books.svg" alt="">
-					</div>
-					<h3>Amazing Library</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/professor.svg" alt="">
-					</div>
-					<h3>Exceptional Professors</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+          if (places.length == 0) {
+            return;
+          }
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/blackboard.svg" alt="">
-					</div>
-					<h3>Top Programs</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
 
-				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/mortarboard.svg" alt="">
-					</div>
-					<h3>Graduate Diploma</h3>
-					<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-				</div>
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
 
-			</div>
-		</div>
-	</div>
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyAX7m7Rbjt-5zx8RYyONeHSghwxh689xiw &libraries=places&callback=initAutocomplete"
+         async defer></script>
+
+	
 
 	<!-- Testimonials -->
 
-	<div class="testimonials page_section">
+	<div class="testimonials page_section" id="aboutus">
 		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
 		<div class="testimonials_background_container prlx_parent">
-			<div class="testimonials_background prlx" style="background-image:url(images/testimonials_background.jpg)"></div>
+			<div class="testimonials_background prlx" style="background-image:url(images/medicine.jpg)"></div>
 		</div>
 		<div class="container">
 
 			<div class="row">
 				<div class="col">
 					<div class="section_title text-center">
-						<h1>What our students say</h1>
+						<h1>Contributors</h1>
 					</div>
 				</div>
 			</div>
@@ -394,45 +398,68 @@
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">“</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
 									<div class="testimonial_user">
 										<div class="testimonial_image mx-auto">
-											<img src="images/testimonials_user.jpg" alt="">
+											<img src="images/Mukesh_Saini.jpg" alt="">
 										</div>
-										<div class="testimonial_name">james cooper</div>
-										<div class="testimonial_title">Graduate Student</div>
+										<div class="testimonial_name">Dr. Mukesh Saini</div>
 									</div>
+									<p class="testimonials_text">Assistant Professor in CSE Department at IIT Ropar.</p>
+									
 								</div>
 							</div>
 
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">“</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
 									<div class="testimonial_user">
 										<div class="testimonial_image mx-auto">
-											<img src="images/testimonials_user.jpg" alt="">
+											<img src="images/s.jpg" alt="NO IMAGE">
 										</div>
-										<div class="testimonial_name">james cooper</div>
-										<div class="testimonial_title">Graduate Student</div>
+										<div class="testimonial_name">Shailendra Kumar Gupta</div>
 									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
 								</div>
 							</div>
 
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
-									<div class="quote">“</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
 									<div class="testimonial_user">
 										<div class="testimonial_image mx-auto">
-											<img src="images/testimonials_user.jpg" alt="">
+											<img src="images/a.jpg" alt="NO IMAGE">
 										</div>
-										<div class="testimonial_name">james cooper</div>
-										<div class="testimonial_title">Graduate Student</div>
+										<div class="testimonial_name">Abhinav Jindal</div>
 									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
+								</div>
+							</div>
+
+							<div class="owl-item">
+								<div class="testimonials_item text-center">
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/m.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Meghana Batchu</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
+								</div>
+							</div>
+
+							<div class="owl-item">
+								<div class="testimonials_item text-center">
+									<div class="testimonial_user">
+										<div class="testimonial_image mx-auto">
+											<img src="images/am.jpg" alt="NO IMAGE">
+										</div>
+										<div class="testimonial_name">Aluvala Mamatha</div>
+									</div>
+									<p class="testimonials_text">Student in CSE Department at IIT Ropar.</p>
+									
 								</div>
 							</div>
 
@@ -445,185 +472,68 @@
 		</div>
 	</div>
 
-	<!-- Events -->
-
-	<div class="events page_section">
-		<div class="container">
-			
-			<div class="row">
-				<div class="col">
-					<div class="section_title text-center">
-						<h1>Upcoming Events</h1>
-					</div>
-				</div>
-			</div>
-			
-			<div class="event_items">
-
-				<!-- Event Item -->
-				<div class="row event_item">
-					<div class="col">
-						<div class="row d-flex flex-row align-items-end">
-
-							<div class="col-lg-2 order-lg-1 order-2">
-								<div class="event_date d-flex flex-column align-items-center justify-content-center">
-									<div class="event_day">07</div>
-									<div class="event_month">January</div>
-								</div>
-							</div>
-
-							<div class="col-lg-6 order-lg-2 order-3">
-								<div class="event_content">
-									<div class="event_name"><a class="trans_200" href="#">Student Festival</a></div>
-									<div class="event_location">Grand Central Park</div>
-									<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor.</p>
-								</div>
-							</div>
-
-							<div class="col-lg-4 order-lg-3 order-1">
-								<div class="event_image">
-									<img src="images/event_1.jpg" alt="https://unsplash.com/@theunsteady5">
-								</div>
-							</div>
-
-						</div>	
-					</div>
-				</div>
-
-				<!-- Event Item -->
-				<div class="row event_item">
-					<div class="col">
-						<div class="row d-flex flex-row align-items-end">
-
-							<div class="col-lg-2 order-lg-1 order-2">
-								<div class="event_date d-flex flex-column align-items-center justify-content-center">
-									<div class="event_day">07</div>
-									<div class="event_month">January</div>
-								</div>
-							</div>
-
-							<div class="col-lg-6 order-lg-2 order-3">
-								<div class="event_content">
-									<div class="event_name"><a class="trans_200" href="#">Open day in the Univesrsity campus</a></div>
-									<div class="event_location">Grand Central Park</div>
-									<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor.</p>
-								</div>
-							</div>
-
-							<div class="col-lg-4 order-lg-3 order-1">
-								<div class="event_image">
-									<img src="images/event_2.jpg" alt="https://unsplash.com/@claybanks1989">
-								</div>
-							</div>
-
-						</div>	
-					</div>
-				</div>
-
-				<!-- Event Item -->
-				<div class="row event_item">
-					<div class="col">
-						<div class="row d-flex flex-row align-items-end">
-
-							<div class="col-lg-2 order-lg-1 order-2">
-								<div class="event_date d-flex flex-column align-items-center justify-content-center">
-									<div class="event_day">07</div>
-									<div class="event_month">January</div>
-								</div>
-							</div>
-
-							<div class="col-lg-6 order-lg-2 order-3">
-								<div class="event_content">
-									<div class="event_name"><a class="trans_200" href="#">Student Graduation Ceremony</a></div>
-									<div class="event_location">Grand Central Park</div>
-									<p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor.</p>
-								</div>
-							</div>
-
-							<div class="col-lg-4 order-lg-3 order-1">
-								<div class="event_image">
-									<img src="images/event_3.jpg" alt="https://unsplash.com/@juanmramosjr">
-								</div>
-							</div>
-
-						</div>	
-					</div>
-				</div>
-
-			</div>
-				
-		</div>
-	</div>
+	
 
 	<!-- Footer -->
 
-	<footer class="footer">
+	<footer class="footer" id="footer">
 		<div class="container">
 			
 			<!-- Newsletter -->
 
-			<div class="newsletter">
-				<div class="row">
-					<div class="col">
-						<div class="section_title text-center">
-							<h1>Subscribe to newsletter</h1>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col text-center">
-						<div class="newsletter_form_container mx-auto">
-							<form action="post">
-								<div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-center">
-									<input id="newsletter_email" class="newsletter_email" type="email" placeholder="Email Address" required="required" data-error="Valid email is required.">
-									<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">Subscribe</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
+			
 			<!-- Footer Content -->
 
 			<div class="footer_content">
 				<div class="row">
 
 					<!-- Footer Column - About -->
-					<div class="col-lg-3 footer_col">
+					<div class="col-lg-5 footer_col">
 
-						<!-- Logo -->
 						<div class="logo_container">
-							<div class="logo">
-								<img src="images/logo.png" alt="">
-								<span>course</span>
-							</div>
-						</div>
+			              <div class="logo">
+			                
+			                <span>EzDoc</span>
+			              </div>
+			            </div>
 
-						<p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p>
+			            <p>EzDoc is an open discussion portal where people with health issues can ask either personal queries to any doctor or can post their problems online so that others give suggestions regarding that problem. </p>
 
 					</div>
 
+					<div class="col-lg-2 footer_col"></div>
+
 					<!-- Footer Column - Menu -->
 
-					<div class="col-lg-3 footer_col">
+					<div class="col-lg-2 footer_col">
 						<div class="footer_column_title">Menu</div>
 						<div class="footer_column_content">
 							<ul>
 								<li class="footer_list_item"><a href="#">Home</a></li>
-								<li class="footer_list_item"><a href="#">About Us</a></li>
-								<li class="footer_list_item"><a href="courses.html">Courses</a></li>
-								<li class="footer_list_item"><a href="news.html">News</a></li>
-								<li class="footer_list_item"><a href="contact.html">Contact</a></li>
+								<li class="footer_list_item"><a href="aboutus.php">About Us</a></li>
+								<li class="footer_list_item"><a href="#">QnA Portal</a></li>
+								<li class="footer_list_item"><a href="contact.php">Contact</a></li>
+								<?php 
+									session_start();
+									
+									if($_SESSION['username'] != null){
+
+										echo '<li class="footer_list_item"><form method="post" action="logout.php">			
+				      							<input type="submit" name="logout" value="'.$_SESSION['username'].' [LOG OUT]">
+				      						</form></li>';
+									}
+									else{
+
+										echo '<li class="footer_list_item"><a href="../Login/index.php">Login/Sign Up</a></li>';
+									}
+								?>
 							</ul>
 						</div>
 					</div>
 
 					<!-- Footer Column - Usefull Links -->
 
-					<div class="col-lg-3 footer_col">
+					<!-- <div class="col-lg-3 footer_col">
 						<div class="footer_column_title">Usefull Links</div>
 						<div class="footer_column_content">
 							<ul>
@@ -634,7 +544,7 @@
 								<li class="footer_list_item"><a href="#">Tuitions</a></li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Footer Column - Contact -->
 
@@ -646,18 +556,18 @@
 									<div class="footer_contact_icon">
 										<img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
 									</div>
-									Blvd Libertad, 34 m05200 Arévalo
+									IIT Ropar
 								</li>
 								<li class="footer_contact_item">
 									<div class="footer_contact_icon">
 										<img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
 									</div>
-									0034 37483 2445 322
+									+91 172 2233564
 								</li>
 								<li class="footer_contact_item">
 									<div class="footer_contact_icon">
 										<img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
-									</div>hello@company.com
+									</div>helpservices@ezdoc.com
 								</li>
 							</ul>
 						</div>
