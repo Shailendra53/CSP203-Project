@@ -124,7 +124,7 @@ input[type=submit]:hover {
 
 
 <?php
-	$personId=1;			
+	include("loginid.php");			
 	$sql="SELECT cart.medicine_id,medicine_name,quantity,price from cart INNER JOIN medicine ON cart.medicine_id=medicine.medicine_id where person_id=$personId order by time DESC";
 	$buystatus=1;
 	$result=mysqli_query($conn,$sql);

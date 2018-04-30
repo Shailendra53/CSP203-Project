@@ -1,7 +1,7 @@
 <?php include '../php/connect.php';?>
 <?php
 //$personId=$_SESSION["userid"];
-$personId=1;
+include("../loginid.php");	
 if(!empty($_GET["action"])){
 switch($_GET["action"]) {
 	case "add":

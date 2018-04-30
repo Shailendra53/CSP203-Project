@@ -120,7 +120,7 @@ input[type=submit]:hover {
 						<table>
 							<tbody>
 <?php
-	$personId=1;			
+	include("loginid.php");				
 	$sql="SELECT cart.medicine_id,medicine_name,quantity,price from cart INNER JOIN medicine ON cart.medicine_id=medicine.medicine_id where person_id=$personId order by time DESC";
 	$result=mysqli_query($conn,$sql);
 	$rowcount = mysqli_num_rows($result);
