@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Register to the discussion forum</title>
+
+	<title>EzDoc-QnA</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	
 </head>
 <body>
+
+
+
+<header id="header">
+				<div class="inner">
+					<a class="logo">EzDoc-QnA</a>
+					<nav id="nav">
+						<a href="index.php">Discussion Forum</a>
+						<a href="account.php">My account</a> 
+						<a href="members.php">Members</a>
+						<a href="register.php">Register</a>
+						<a href="login.php">Login</a>
+						<a href="index.php?action=logout"> logout</a></center>	
+					</nav>
+				</div>
+			</header>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+<section id="main">
+				<div class="inner" style="text-align: center;">
+
 <form action="register.php" method="POST">
 	Name<input type="text" name="name"><br/>
 	Username<input type="text" name="username"><br/>
@@ -15,6 +40,7 @@
 	<input type="submit" name="submit" value='Register'>
 	<button><a href="login.php">Login</a></button>
 </form>
+</div></section>
 </body>
 </html>
 

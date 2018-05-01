@@ -4,8 +4,7 @@
 	if (@$_SESSION["username"]) {
 ?>
 
-<center><a href="index.php">Discussion Forum</a> | <a href="account.php">My account</a> | <a href="members.php">Members</a> 
-| <a href="index.php?action=logout"> logout</a></center>
+
 <?php
 	}
 	else {
@@ -15,10 +14,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<title>home page</title>
+
+	<title>EzDoc-QnA</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	
 </head>
 <body>
+
+
+
+<header id="header">
+				<div class="inner">
+					<a class="logo">EzDoc-QnA</a>
+					<nav id="nav">
+						<a href="index.php">Discussion Forum</a>
+						<a href="account.php">My account</a> 
+						<a href="members.php">Members</a>
+						<a href="register.php">Register</a>
+						<a href="login.php">Login</a>
+						<a href="index.php?action=logout"> logout</a></center>
+					</nav>
+				</div>
+			</header>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+<section id="main">
+				<div class="inner" style="text-align: center;">
 <?php  
 
 $check = mysqli_query($connect,"SELECT * FROM users WHERE username = '".$_SESSION['username']."'");
@@ -40,6 +62,7 @@ $check = mysqli_query($connect,"SELECT * FROM users WHERE username = '".$_SESSIO
 	Date Registered: <?php echo $date; ?> <br/>
 	<a href="account.php?action=chanp">Change password</a><br/>
 	<a href="account.php?action=chanpic">Change profile picture</a>
+</div></section>
 
 </body>
 </html>

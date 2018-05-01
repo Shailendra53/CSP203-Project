@@ -33,7 +33,10 @@ CREATE TABLE `comments` (
   `comment_content` varchar(9999) NOT NULL,
   `comment_author` mediumtext NOT NULL,
   `topic_id` int(255) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `likes` int(10) NOT NULL,
+  `unlikes` int(10) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
